@@ -16,6 +16,7 @@ let wrongAnswers = [];
 let testMode = false;
 let selectedAnswers = [];
 const PASS_THRESHOLD = 80;
+const LIVE_QUIZ_BASE = "https://christhodesen.github.io/bg-quiz-app";
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 function shuffle(array) {
@@ -219,11 +220,15 @@ function selectQuiz(id) {
 }
 
 function showModeSelector() {
-  document.getElementById('quizExitBtn').style.display = 'none'; 
+  document.getElementById('quizExitBtn').style.display = 'none';
+ 
   const card = document.getElementById('quizCard');
   card.className = 'quiz-card fade-in';
   document.getElementById('quizSubtitle').textContent = currentQuiz.subtitle;
-
+ 
+  // Generator-based quizzes can't be hosted live (questions generated client-side)
+  const canHost = !currentQuiz.generator;
+ 
   card.innerHTML = `
     <button class="back-btn" onclick="showQuizSelector()">&#8592; All quizzes</button>
     <p class="selected-quiz-name">${currentQuiz.title}</p>
@@ -238,9 +243,21 @@ function showModeSelector() {
         <span class="mode-label">Test Mode</span>
         <span class="mode-hint">Results revealed at the end — pass mark ${currentQuiz.passmark}%</span>
       </button>
+      ${canHost ? `
+      <button class="mode-btn mode-host" onclick="hostQuiz('${currentQuiz.id}')">
+        <span class="mode-icon">🎮</span>
+        <span class="mode-label">Host a Quiz</span>
+        <span class="mode-hint">Run a live session — opens the host screen</span>
+      </button>
+      ` : ''}
     </div>
   `;
 }
+ 
+function hostQuiz(quizId) {
+  window.open(`${LIVE_QUIZ_BASE}/host.html?quiz=${encodeURIComponent(quizId)}`, '_blank');
+}
+
 
 function showJoinQuiz() {
   document.getElementById('quizExitBtn').style.display = 'none'; 
@@ -283,10 +300,12 @@ function joinRoom() {
     alert('Please enter a valid room code.');
     return;
   }
-  // TODO: replace with merged live quiz URL once Firebase quiz is integrated
-  const LIVE_QUIZ_BASE_URL = 'https://YOUR-LIVE-QUIZ-PAGES-URL.github.io/?room=';
-  window.open(LIVE_QUIZ_BASE_URL + encodeURIComponent(code), '_blank');
+  window.open(
+    `${LIVE_QUIZ_BASE}/player.html?room=${encodeURIComponent(code)}`,
+    '_blank'
+  );
 }
+
 
 // ── Feedback ──────────────────────────────────────────────────────────────────
 function feedbackHTML(prefix, q, fallback) {

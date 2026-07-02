@@ -515,6 +515,7 @@ header p.subtitle {
 }
 .mode-btn:active { transform: scale(0.98); }
 
+.mode-host:hover { border-color: #a855f7; }
 .mode-practice:hover { border-color: var(--colour-border-hover); }
 .mode-test:hover     { border-color: #facc15; }
 
