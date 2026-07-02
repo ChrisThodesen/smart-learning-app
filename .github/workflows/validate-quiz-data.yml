@@ -1,0 +1,29 @@
+name: Validate Quiz Data
+ 
+on:
+  push:
+    paths:
+      - 'data/**'
+      - 'validate_quiz_data.py'
+      - '.github/workflows/validate-quiz-data.yml'
+  pull_request:
+    paths:
+      - 'data/**'
+      - 'validate_quiz_data.py'
+      - '.github/workflows/validate-quiz-data.yml'
+  workflow_dispatch: {}
+ 
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v4
+ 
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+ 
+      - name: Run quiz data validation
+        run: python3 validate_quiz_data.py --root .

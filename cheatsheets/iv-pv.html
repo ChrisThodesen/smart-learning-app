@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Installation & Purge Volumes — Gas Safety Cheat Sheet</title>
+<style>
+  :root {
+    --navy: #0d1b2a;
+    --navy-mid: #1a2e45;
+    --cyan: #00c2d4;
+    --cyan-dark: #009aaa;
+    --text: #e8f0f7;
+    --text-dim: #8aa4bf;
+    --correct: #2ecc71;
+    --warn: #f39c12;
+    --danger: #e74c3c;
+    --card: #162030;
+    --border: #243650;
+    --highlight: #1e3a5f;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: var(--navy);
+    color: var(--text);
+    line-height: 1.6;
+    font-size: 15px;
+  }
+
+  header {
+    background: linear-gradient(135deg, var(--navy-mid), #0a2540);
+    border-bottom: 3px solid var(--cyan);
+    padding: 24px 24px 16px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  header h1 { font-size: 1.4rem; color: var(--cyan); font-weight: 700; }
+  header p  { font-size: 0.82rem; color: var(--text-dim); margin-top: 2px; }
+
+  nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 10px;
+  }
+
+  nav a {
+    background: var(--highlight);
+    color: var(--cyan);
+    text-decoration: none;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.76rem;
+    font-weight: 600;
+    border: 1px solid var(--border);
+    transition: background 0.2s;
+  }
+  nav a:hover { background: var(--cyan); color: var(--navy); }
+
+  main { max-width: 900px; margin: 0 auto; padding: 20px 16px 60px; }
+
+  section { margin-bottom: 40px; }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--navy-mid);
+    border-left: 4px solid var(--cyan);
+    border-radius: 0 8px 8px 0;
+    padding: 12px 16px;
+    margin-bottom: 16px;
+  }
+
+  .section-header .icon { font-size: 1.6rem; }
+  .section-header h2 { font-size: 1.1rem; color: var(--cyan); font-weight: 700; }
+  .section-header .ref { font-size: 0.75rem; color: var(--text-dim); margin-top: 1px; }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 14px;
+  }
+
+  .card h3 {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--cyan);
+    margin-bottom: 10px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .formula-box {
+    background: var(--highlight);
+    border: 1px solid var(--cyan-dark);
+    border-radius: 6px;
+    padding: 10px 14px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.88rem;
+    margin: 8px 0;
+    color: #b8e0ff;
+  }
+
+  .formula-box .label {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.82rem;
+    margin: 10px 0;
+  }
+
+  th {
+    background: var(--highlight);
+    color: var(--cyan);
+    padding: 7px 10px;
+    text-align: left;
+    font-size: 0.78rem;
+    font-weight: 600;
+    border: 1px solid var(--border);
+  }
+
+  td {
+    padding: 6px 10px;
+    border: 1px solid var(--border);
+    vertical-align: top;
+  }
+
+  tr:nth-child(even) td { background: rgba(255,255,255,0.03); }
+
+  .worked {
+    background: rgba(0,194,212,0.05);
+    border: 1px solid rgba(0,194,212,0.25);
+    border-radius: 6px;
+    padding: 12px 14px;
+    margin-top: 10px;
+    font-size: 0.84rem;
+  }
+
+  .worked .title {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--cyan);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+  }
+
+  .worked code {
+    display: block;
+    font-family: 'Courier New', monospace;
+    font-size: 0.83rem;
+    color: #b8e0ff;
+    line-height: 1.8;
+    white-space: pre-wrap;
+  }
+
+  .worked .result {
+    margin-top: 8px;
+    color: var(--correct);
+    font-weight: 700;
+    font-family: 'Courier New', monospace;
+  }
+
+  .callout {
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin: 10px 0;
+    font-size: 0.84rem;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .callout.info  { background: rgba(0,122,212,0.1); border-left: 3px solid #2980b9; }
+  .callout.warn  { background: rgba(243,156,18,0.1); border-left: 3px solid var(--warn); }
+  .callout.danger { background: rgba(231,76,60,0.1); border-left: 3px solid var(--danger); }
+  .callout.ok    { background: rgba(46,204,113,0.1); border-left: 3px solid var(--correct); }
+
+  .callout .ico { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+  .callout p { margin: 0; }
+  .callout strong { color: inherit; }
+
+  .pill {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    margin-right: 4px;
+  }
+  .pill.pass   { background: rgba(46,204,113,0.2); color: var(--correct); border: 1px solid var(--correct); }
+  .pill.fail   { background: rgba(231,76,60,0.2); color: var(--danger); border: 1px solid var(--danger); }
+  .pill.warn   { background: rgba(243,156,18,0.2); color: var(--warn); border: 1px solid var(--warn); }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  @media (max-width: 600px) {
+    .two-col { grid-template-columns: 1fr; }
+  }
+
+  .step {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    margin-bottom: 8px;
+    font-size: 0.84rem;
+  }
+
+  .step .num {
+    background: var(--cyan);
+    color: var(--navy);
+    font-weight: 700;
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  p { margin-bottom: 8px; font-size: 0.84rem; }
+  ul { margin: 6px 0 6px 18px; font-size: 0.84rem; }
+  li { margin-bottom: 3px; }
+
+  .source-tag {
+    display: inline-block;
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1px 5px;
+    margin-left: 6px;
+    font-family: monospace;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>📦 Installation & Purge Volumes</h1>
+  <p>Calculating IVt and PV for tightness testing and purging — Gas Safety Technical Guide v5.0</p>
+  <nav>
+    <a href="cheatsheets.html">← All Cheat Sheets</a>
+    <a href="#iv">📦 Installation Volume</a>
+    <a href="#pv">💨 Purge Volume</a>
+  </nav>
+</header>
+
+<main>
+<section id="iv">
+  <div class="section-header">
+    <span class="icon">📦</span>
+    <div>
+      <h2>Installation Volume (IV)</h2>
+      <div class="ref">Source: S2-21 to S2-24</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Master Formula</h3>
+    <div class="formula-box">
+      <div class="label">Total Installation Volume</div>
+      IVt = IVm + IVp + IVf
+    </div>
+    <p>Where <strong>IVm</strong> = meter volume · <strong>IVp</strong> = pipe volume · <strong>IVf</strong> = fittings volume</p>
+    <div class="callout warn">
+      <span class="ico">⚠️</span>
+      <p>For <strong>inaccessible pipework</strong> of unknown length: always assume the <strong>largest pipe size</strong> for the <strong>maximum length</strong>. When extending existing pipework, total IVt (new + existing) must be <strong>&lt; 0.035 m³</strong>.</p>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div class="card">
+      <h3>Table 3 — Meter Volumes (IVm) <span class="source-tag">S2-21</span></h3>
+      <table>
+        <tr><th>Meter</th><th>IVm (m³)</th><th>Cyclic Vol (m³)</th><th>Cyclic Vol (ft³)</th></tr>
+        <tr><td>G4 / U6</td><td>0.008</td><td>0.002</td><td>0.071</td></tr>
+        <tr><td>U16</td><td>0.025</td><td>0.006</td><td>0.200</td></tr>
+        <tr><td>E6</td><td>0.0024</td><td>N/A</td><td>N/A</td></tr>
+      </table>
+      <div class="callout info" style="margin-top:8px">
+        <span class="ico">ℹ️</span>
+        <p>For diaphragm meters, the cyclic volume is needed for PV calc: <strong>PV = 5 × cyclic volume</strong></p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Fittings Volume (IVf) <span class="source-tag">S2-23</span></h3>
+      <p>Add actual volumes of valves, regulators, pressure vessels, accumulators etc.</p>
+      <div class="callout ok">
+        <span class="ico">✅</span>
+        <p>If the fittings volume <strong>cannot be calculated</strong>, add <strong>10% of IVp</strong> as a safe allowance.</p>
+      </div>
+      <div class="formula-box" style="margin-top:8px">
+        <div class="label">When fittings volume is unknown</div>
+        IVf = 0.1 × IVp
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Table 4 — Volume of 1 m length of pipe (IVp per metre) <span class="source-tag">S2-22</span></h3>
+    <table>
+      <tr><th>Material</th><th>Size (mm)</th><th>Size (in)</th><th>m³ per metre</th></tr>
+      <tr><td rowspan="4">Steel / Stainless / CSST</td><td>15</td><td>½"</td><td>0.00024</td></tr>
+      <tr><td>20</td><td>¾"</td><td>0.00046</td></tr>
+      <tr><td>25</td><td>1"</td><td>0.00064</td></tr>
+      <tr><td>32</td><td>1¼"</td><td>0.0011</td></tr>
+      <tr><td rowspan="4">Copper</td><td>15</td><td>—</td><td>0.00014</td></tr>
+      <tr><td>22</td><td>—</td><td>0.00032</td></tr>
+      <tr><td>28</td><td>—</td><td>0.00054</td></tr>
+      <tr><td>35</td><td>—</td><td>0.00084</td></tr>
+      <tr><td rowspan="3">PE SDR 11</td><td>20</td><td>—</td><td>0.00019</td></tr>
+      <tr><td>25</td><td>—</td><td>0.00033</td></tr>
+      <tr><td>32</td><td>—</td><td>0.00053</td></tr>
+    </table>
+    <p style="margin-top:8px"><strong>Formula:</strong> IVp = (volume per metre from table) × pipe length (m)</p>
+  </div>
+
+  <div class="card">
+    <h3>Worked Examples <span class="source-tag">S2-23/24</span></h3>
+
+    <div class="worked">
+      <div class="title">Example 1 — Single pipe run, fittings unknown</div>
+      <p><em>U6 meter · 10m of 35mm copper · fittings volume unknown</em></p>
+      <code>IVm = 0.008
+IVp = 10 × 0.00084 = 0.0084
+IVf = 0.1 × 0.0084  = 0.00084
+──────────────────────────────</code>
+      <div class="result">IVt = 0.008 + 0.0084 + 0.00084 = 0.01724 m³</div>
+    </div>
+
+    <div class="worked" style="margin-top:10px">
+      <div class="title">Example 2 — Two pipe runs in series, fittings unknown</div>
+      <p><em>U6 meter · Pipe a: 10m of 35mm copper · Pipe b: 10m of 25mm steel · fittings unknown</em></p>
+      <code>IVm  = 0.008
+IVpa = 10 × 0.00084 = 0.0084
+IVpb = 10 × 0.00064 = 0.0064
+IVf  = 0.1 × (0.0084 + 0.0064) = 0.00148
+──────────────────────────────</code>
+      <div class="result">IVt = 0.008 + 0.0084 + 0.0064 + 0.00148 = 0.02428 m³</div>
+    </div>
+  </div>
+</section>
+
+<section id="pv">
+  <div class="section-header">
+    <span class="icon">💨</span>
+    <div>
+      <h2>Purge Volume (PV)</h2>
+      <div class="ref">Source: S2-19 to S2-20</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Table 2 — Which purge method applies? <span class="source-tag">S2-19</span></h3>
+    <table>
+      <tr>
+        <th>Meter + Pipe Size</th>
+        <th>Purge Volume (PV)</th>
+        <th>Notes</th>
+      </tr>
+      <tr>
+        <td>E6 / G4 / U6 meter <strong>AND</strong> pipework ≤ 28mm</td>
+        <td><strong>0.01 m³</strong> (0.35 ft³)</td>
+        <td>Fixed figure — no calculation needed</td>
+      </tr>
+      <tr>
+        <td>G4 / E6 / U6 meter <strong>AND</strong> pipework &gt; 28mm ≤ 35mm</td>
+        <td><strong>1.5 × IV</strong></td>
+        <td>Must calculate IVt first</td>
+      </tr>
+      <tr>
+        <td>G10 / U16 meter <strong>AND</strong> any pipework ≤ 35mm</td>
+        <td><strong>1.5 × IV</strong></td>
+        <td>All U16 installs exceed 0.02m³ — must attempt ignition</td>
+      </tr>
+    </table>
+
+    <div class="formula-box" style="margin-top:10px">
+      <div class="label">Where PV must be calculated</div>
+      PV = IVt × 1.5
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Ignition requirement thresholds <span class="source-tag">S2-19/20</span></h3>
+    <table>
+      <tr><th>Installation Volume (IVt)</th><th>Purge procedure</th></tr>
+      <tr>
+        <td><strong>≤ 0.02 m³</strong></td>
+        <td>May purge to atmosphere <em>or</em> attempt ignition at an open burner. Area must be well ventilated (windows/doors open).</td>
+      </tr>
+      <tr>
+        <td><strong>&gt; 0.02 m³ and ≤ 0.035 m³</strong></td>
+        <td><span class="pill fail">MUST</span> continually attempt to ignite the purged mixture at an open burner (e.g. cooker hotplate). If no open burner is available, temporarily install one.</td>
+      </tr>
+    </table>
+    <div class="callout danger" style="margin-top:8px">
+      <span class="ico">🚫</span>
+      <p>A tightness test <strong>must be carried out immediately before</strong> any purge that admits fuel gas. The pressure during purging must not exceed the MOP of the pipework.</p>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div class="worked">
+      <div class="title">PV Example 1 (IVt = 0.01724 m³ — from Ex.1 above)</div>
+      <code>PV = 0.01724 × 1.5</code>
+      <div class="result">PV = 0.02586 m³</div>
+      <p style="margin-top:6px;font-size:0.78rem;">IV &gt; 0.02 → must attempt ignition at open burner.</p>
+    </div>
+    <div class="worked">
+      <div class="title">PV Example 2 (IVt = 0.02428 m³ — from Ex.2 above)</div>
+      <code>PV = 0.02428 × 1.5</code>
+      <div class="result">PV = 0.03642 m³</div>
+      <p style="margin-top:6px;font-size:0.78rem;">IV &gt; 0.02 → must ignite purged mixture at open burner.</p>
+    </div>
+  </div>
+</section>
+</main>
+
+</body>
+</html>

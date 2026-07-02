@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tightness Testing — Gas Safety Cheat Sheet</title>
+<style>
+  :root {
+    --navy: #0d1b2a;
+    --navy-mid: #1a2e45;
+    --cyan: #00c2d4;
+    --cyan-dark: #009aaa;
+    --text: #e8f0f7;
+    --text-dim: #8aa4bf;
+    --correct: #2ecc71;
+    --warn: #f39c12;
+    --danger: #e74c3c;
+    --card: #162030;
+    --border: #243650;
+    --highlight: #1e3a5f;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: var(--navy);
+    color: var(--text);
+    line-height: 1.6;
+    font-size: 15px;
+  }
+
+  header {
+    background: linear-gradient(135deg, var(--navy-mid), #0a2540);
+    border-bottom: 3px solid var(--cyan);
+    padding: 24px 24px 16px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  header h1 { font-size: 1.4rem; color: var(--cyan); font-weight: 700; }
+  header p  { font-size: 0.82rem; color: var(--text-dim); margin-top: 2px; }
+
+  nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 10px;
+  }
+
+  nav a {
+    background: var(--highlight);
+    color: var(--cyan);
+    text-decoration: none;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.76rem;
+    font-weight: 600;
+    border: 1px solid var(--border);
+    transition: background 0.2s;
+  }
+  nav a:hover { background: var(--cyan); color: var(--navy); }
+
+  main { max-width: 900px; margin: 0 auto; padding: 20px 16px 60px; }
+
+  section { margin-bottom: 40px; }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--navy-mid);
+    border-left: 4px solid var(--cyan);
+    border-radius: 0 8px 8px 0;
+    padding: 12px 16px;
+    margin-bottom: 16px;
+  }
+
+  .section-header .icon { font-size: 1.6rem; }
+  .section-header h2 { font-size: 1.1rem; color: var(--cyan); font-weight: 700; }
+  .section-header .ref { font-size: 0.75rem; color: var(--text-dim); margin-top: 1px; }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 14px;
+  }
+
+  .card h3 {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--cyan);
+    margin-bottom: 10px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .formula-box {
+    background: var(--highlight);
+    border: 1px solid var(--cyan-dark);
+    border-radius: 6px;
+    padding: 10px 14px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.88rem;
+    margin: 8px 0;
+    color: #b8e0ff;
+  }
+
+  .formula-box .label {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.82rem;
+    margin: 10px 0;
+  }
+
+  th {
+    background: var(--highlight);
+    color: var(--cyan);
+    padding: 7px 10px;
+    text-align: left;
+    font-size: 0.78rem;
+    font-weight: 600;
+    border: 1px solid var(--border);
+  }
+
+  td {
+    padding: 6px 10px;
+    border: 1px solid var(--border);
+    vertical-align: top;
+  }
+
+  tr:nth-child(even) td { background: rgba(255,255,255,0.03); }
+
+  .worked {
+    background: rgba(0,194,212,0.05);
+    border: 1px solid rgba(0,194,212,0.25);
+    border-radius: 6px;
+    padding: 12px 14px;
+    margin-top: 10px;
+    font-size: 0.84rem;
+  }
+
+  .worked .title {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--cyan);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+  }
+
+  .worked code {
+    display: block;
+    font-family: 'Courier New', monospace;
+    font-size: 0.83rem;
+    color: #b8e0ff;
+    line-height: 1.8;
+    white-space: pre-wrap;
+  }
+
+  .worked .result {
+    margin-top: 8px;
+    color: var(--correct);
+    font-weight: 700;
+    font-family: 'Courier New', monospace;
+  }
+
+  .callout {
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin: 10px 0;
+    font-size: 0.84rem;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .callout.info  { background: rgba(0,122,212,0.1); border-left: 3px solid #2980b9; }
+  .callout.warn  { background: rgba(243,156,18,0.1); border-left: 3px solid var(--warn); }
+  .callout.danger { background: rgba(231,76,60,0.1); border-left: 3px solid var(--danger); }
+  .callout.ok    { background: rgba(46,204,113,0.1); border-left: 3px solid var(--correct); }
+
+  .callout .ico { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+  .callout p { margin: 0; }
+  .callout strong { color: inherit; }
+
+  .pill {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    margin-right: 4px;
+  }
+  .pill.pass   { background: rgba(46,204,113,0.2); color: var(--correct); border: 1px solid var(--correct); }
+  .pill.fail   { background: rgba(231,76,60,0.2); color: var(--danger); border: 1px solid var(--danger); }
+  .pill.warn   { background: rgba(243,156,18,0.2); color: var(--warn); border: 1px solid var(--warn); }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  @media (max-width: 600px) {
+    .two-col { grid-template-columns: 1fr; }
+  }
+
+  .step {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    margin-bottom: 8px;
+    font-size: 0.84rem;
+  }
+
+  .step .num {
+    background: var(--cyan);
+    color: var(--navy);
+    font-weight: 700;
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  p { margin-bottom: 8px; font-size: 0.84rem; }
+  ul { margin: 6px 0 6px 18px; font-size: 0.84rem; }
+  li { margin-bottom: 3px; }
+
+  .source-tag {
+    display: inline-block;
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1px 5px;
+    margin-left: 6px;
+    font-family: monospace;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🔬 Tightness Testing</h1>
+  <p>Test pressures, permissible drops, let-by tests and lock-up — Gas Safety Technical Guide v5.0</p>
+  <nav>
+    <a href="cheatsheets.html">← All Cheat Sheets</a>
+    <a href="#tt">🔬 Tightness Testing</a>
+  </nav>
+</header>
+
+<main>
+<section id="tt">
+  <div class="section-header">
+    <span class="icon">🔬</span>
+    <div>
+      <h2>Tightness Testing</h2>
+      <div class="ref">Source: S2-5 to S2-18</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Test procedure at a glance <span class="source-tag">S2-9/10/11</span></h3>
+    <div class="step"><span class="num">1</span><span>Open appliance isolation valves. Close all appliance control taps (and lift cooker fold-down lid).</span></div>
+    <div class="step"><span class="num">2</span><span>Turn off gas at the appropriate supply control valve (ECV / AECV for MOP ≤ 75 mbar · MIV for MOP &gt; 75 mbar).</span></div>
+    <div class="step"><span class="num">3</span><span>Connect pressure gauge to suitable test point or test T-piece.</span></div>
+    <div class="step"><span class="num">4</span><span>Carry out <strong>1 minute let-by test</strong>: adjust to 7–10 mbar, close valve, watch for any pressure rise.</span></div>
+    <div class="step"><span class="num">5</span><span>Raise pressure to <strong>20–21 mbar</strong>. (Do not exceed 21 mbar to avoid regulator lock-up. If 21–23 mbar, readjust down. If &gt; 23 mbar, drop to 7–10 mbar first.)</span></div>
+    <div class="step"><span class="num">6</span><span>Allow <strong>1 minute stabilisation</strong>. Readjust to 20–21 mbar if needed.</span></div>
+    <div class="step"><span class="num">7</span><span>Check for perceptible pressure fall over <strong>2 minutes</strong>.</span></div>
+    <div class="step"><span class="num">8</span><span>Pass / fail decision (see tables below). Record results.</span></div>
+    <div class="step"><span class="num">9</span><span>Remove gauge, reseal test point. Test all exposed joints with LDF. Purge if required.</span></div>
+  </div>
+
+  <div class="two-col">
+    <div class="card">
+      <h3>Definition of "perceptible movement" <span class="source-tag">S2-7</span></h3>
+      <table>
+        <tr><th>Gauge type</th><th>Pass threshold</th></tr>
+        <tr><td>Water (U-gauge)</td><td>Any visible movement = perceptible (≈ &gt;0.25 mbar)</td></tr>
+        <tr><td>Electronic (1 decimal)</td><td>0.2 mbar or less = not perceptible</td></tr>
+        <tr><td>Electronic (0.1 mbar)</td><td>0.25 mbar or less = not perceptible</td></tr>
+      </table>
+      <div class="callout info" style="margin-top:8px">
+        <span class="ico">ℹ️</span>
+        <p>For <strong>new installations</strong> and all let-by tests, the pass criterion is <strong>no perceptible movement at all</strong>.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Let-by test <span class="source-tag">S2-9</span></h3>
+      <p>Set to 7–10 mbar · close valve · watch <strong>1 minute</strong>.</p>
+      <table>
+        <tr><th>Result</th><th>Action</th></tr>
+        <tr><td><span class="pill pass">No rise</span></td><td>Valve passed — proceed with test</td></tr>
+        <tr><td><span class="pill fail">Pressure rises</span></td><td>Valve letting-by. Check with LDF on barrel/ball. ECV let-by → notify National Gas Emergency. MIV let-by → notify MAM immediately.</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Table 1 — Maximum permissible pressure drop (existing installations, appliances connected, 2-minute test) <span class="source-tag">S2-7</span></h3>
+    <table>
+      <tr>
+        <th>Pipe Diameter</th>
+        <th>Ultrasonic ≤ 6m³/hr (E6) or no meter</th>
+        <th>Diaphragm ≤ 6m³/hr (U6 / G4)</th>
+        <th>Diaphragm &gt; 6m³/hr ≤ 16m³/hr (U16 / G10)</th>
+      </tr>
+      <tr>
+        <td>≤ 28mm</td>
+        <td><strong>8 mbar</strong></td>
+        <td><strong>4 mbar</strong></td>
+        <td><strong>1 mbar</strong></td>
+      </tr>
+      <tr>
+        <td>&gt; 28mm ≤ 35mm</td>
+        <td><strong>4 mbar</strong></td>
+        <td><strong>2.5 mbar</strong></td>
+        <td><strong>1 mbar</strong></td>
+      </tr>
+    </table>
+    <div class="callout warn" style="margin-top:8px">
+      <span class="ico">⚠️</span>
+      <p>Permissible drops only apply to <strong>existing installations where at least one appliance is connected</strong> and there is <strong>no smell of gas</strong>. New installations, or existing with no appliances, require <strong>no perceptible movement</strong>.</p>
+    </div>
+    <div class="callout info" style="margin-top:6px">
+      <span class="ico">ℹ️</span>
+      <p>Where there is no meter (e.g. unmetered flat), use the <strong>E6/no meter column</strong>. The larger allowance reflects the small volume of pipework in that scenario.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Lock-up <span class="source-tag">S2-8</span></h3>
+    <p>Lock-up occurs when the regulator valve is forced onto its seating (no flow, full shut-off). During a tightness test this means the section <strong>upstream of the regulator</strong> (meter inlet) is <strong>not tested</strong>.</p>
+    <div class="callout warn">
+      <span class="ico">⚠️</span>
+      <p>To avoid lock-up, never exceed <strong>21 mbar</strong> when raising test pressure. If exceeded: drop to 7–10 mbar before re-raising. If exceeded 23 mbar: must drop to 7–10 mbar before re-raising.</p>
+    </div>
+  </div>
+</section>
+</main>
+
+</body>
+</html>

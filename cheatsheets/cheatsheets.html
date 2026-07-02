@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gas Safety Cheat Sheets</title>
+<style>
+  :root {
+    --navy: #0d1b2a;
+    --navy-mid: #1a2e45;
+    --cyan: #00c2d4;
+    --cyan-dark: #009aaa;
+    --text: #e8f0f7;
+    --text-dim: #8aa4bf;
+    --correct: #2ecc71;
+    --warn: #f39c12;
+    --danger: #e74c3c;
+    --card: #162030;
+    --border: #243650;
+    --highlight: #1e3a5f;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: var(--navy);
+    color: var(--text);
+    line-height: 1.6;
+    font-size: 15px;
+  }
+
+  header {
+    background: linear-gradient(135deg, var(--navy-mid), #0a2540);
+    border-bottom: 3px solid var(--cyan);
+    padding: 24px 24px 16px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  header h1 { font-size: 1.4rem; color: var(--cyan); font-weight: 700; }
+  header p  { font-size: 0.82rem; color: var(--text-dim); margin-top: 2px; }
+
+  nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 10px;
+  }
+
+  nav a {
+    background: var(--highlight);
+    color: var(--cyan);
+    text-decoration: none;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.76rem;
+    font-weight: 600;
+    border: 1px solid var(--border);
+    transition: background 0.2s;
+  }
+  nav a:hover { background: var(--cyan); color: var(--navy); }
+
+  main { max-width: 900px; margin: 0 auto; padding: 20px 16px 60px; }
+
+  section { margin-bottom: 40px; }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--navy-mid);
+    border-left: 4px solid var(--cyan);
+    border-radius: 0 8px 8px 0;
+    padding: 12px 16px;
+    margin-bottom: 16px;
+  }
+
+  .section-header .icon { font-size: 1.6rem; }
+  .section-header h2 { font-size: 1.1rem; color: var(--cyan); font-weight: 700; }
+  .section-header .ref { font-size: 0.75rem; color: var(--text-dim); margin-top: 1px; }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 14px;
+  }
+
+  .card h3 {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--cyan);
+    margin-bottom: 10px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .formula-box {
+    background: var(--highlight);
+    border: 1px solid var(--cyan-dark);
+    border-radius: 6px;
+    padding: 10px 14px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.88rem;
+    margin: 8px 0;
+    color: #b8e0ff;
+  }
+
+  .formula-box .label {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.82rem;
+    margin: 10px 0;
+  }
+
+  th {
+    background: var(--highlight);
+    color: var(--cyan);
+    padding: 7px 10px;
+    text-align: left;
+    font-size: 0.78rem;
+    font-weight: 600;
+    border: 1px solid var(--border);
+  }
+
+  td {
+    padding: 6px 10px;
+    border: 1px solid var(--border);
+    vertical-align: top;
+  }
+
+  tr:nth-child(even) td { background: rgba(255,255,255,0.03); }
+
+  .worked {
+    background: rgba(0,194,212,0.05);
+    border: 1px solid rgba(0,194,212,0.25);
+    border-radius: 6px;
+    padding: 12px 14px;
+    margin-top: 10px;
+    font-size: 0.84rem;
+  }
+
+  .worked .title {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--cyan);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+  }
+
+  .worked code {
+    display: block;
+    font-family: 'Courier New', monospace;
+    font-size: 0.83rem;
+    color: #b8e0ff;
+    line-height: 1.8;
+    white-space: pre-wrap;
+  }
+
+  .worked .result {
+    margin-top: 8px;
+    color: var(--correct);
+    font-weight: 700;
+    font-family: 'Courier New', monospace;
+  }
+
+  .callout {
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin: 10px 0;
+    font-size: 0.84rem;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .callout.info  { background: rgba(0,122,212,0.1); border-left: 3px solid #2980b9; }
+  .callout.warn  { background: rgba(243,156,18,0.1); border-left: 3px solid var(--warn); }
+  .callout.danger { background: rgba(231,76,60,0.1); border-left: 3px solid var(--danger); }
+  .callout.ok    { background: rgba(46,204,113,0.1); border-left: 3px solid var(--correct); }
+
+  .callout .ico { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+  .callout p { margin: 0; }
+  .callout strong { color: inherit; }
+
+  .pill {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    margin-right: 4px;
+  }
+  .pill.pass   { background: rgba(46,204,113,0.2); color: var(--correct); border: 1px solid var(--correct); }
+  .pill.fail   { background: rgba(231,76,60,0.2); color: var(--danger); border: 1px solid var(--danger); }
+  .pill.warn   { background: rgba(243,156,18,0.2); color: var(--warn); border: 1px solid var(--warn); }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  @media (max-width: 600px) {
+    .two-col { grid-template-columns: 1fr; }
+  }
+
+  .step {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    margin-bottom: 8px;
+    font-size: 0.84rem;
+  }
+
+  .step .num {
+    background: var(--cyan);
+    color: var(--navy);
+    font-weight: 700;
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  p { margin-bottom: 8px; font-size: 0.84rem; }
+  ul { margin: 6px 0 6px 18px; font-size: 0.84rem; }
+  li { margin-bottom: 3px; }
+
+  .source-tag {
+    display: inline-block;
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1px 5px;
+    margin-left: 6px;
+    font-family: monospace;
+  }
+</style>
+
+<style>
+  .sheet-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+    margin-top: 20px;
+  }
+  .sheet-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    transition: border-color 0.2s, transform 0.15s;
+    cursor: pointer;
+  }
+  .sheet-card:hover {
+    border-color: var(--cyan);
+    transform: translateY(-2px);
+  }
+  .sheet-card .card-icon { font-size: 2rem; }
+  .sheet-card .card-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--cyan);
+  }
+  .sheet-card .card-desc {
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    line-height: 1.5;
+  }
+  .sheet-card .card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-top: 4px;
+  }
+  .sheet-card .tag {
+    background: var(--highlight);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    padding: 2px 7px;
+  }
+  .sheet-card .card-ref {
+    font-size: 0.72rem;
+    color: var(--border);
+    font-family: monospace;
+    margin-top: auto;
+    padding-top: 8px;
+    border-top: 1px solid var(--border);
+  }
+  .intro-card {
+    background: var(--navy-mid);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+    font-size: 0.84rem;
+    color: var(--text-dim);
+    line-height: 1.6;
+  }
+  .intro-card strong { color: var(--text); }
+</style>
+
+</head>
+<body>
+
+<header>
+  <h1>⚙️ Gas Safety Cheat Sheets</h1>
+  <p>Quick-reference calculation guides — all sourced from the Gas Safety Technical Guide v5.0</p>
+</header>
+
+<main style="max-width:960px;margin:0 auto;padding:20px 16px 60px;">
+
+  <div class="intro-card">
+    <strong>How to use these sheets:</strong> Each sheet covers one calculation area end-to-end — formulas, tables, worked examples and source references. 
+    All figures come directly from the Gas Safety Technical Guide v5.0. Section references (e.g. <code style="font-size:0.8rem">S2-22</code>) are shown throughout so you can verify against the guide.
+  </div>
+
+  <div class="sheet-grid">
+    <a class="sheet-card" href="/cheatsheets/iv-pv.html">
+      <div class="card-icon">📦</div>
+      <div class="card-title">Installation & Purge Volumes</div>
+      <div class="card-desc">Calculate IVt from meter, pipe and fittings volumes. Determine purge volume and the correct purging procedure based on installation size.</div>
+      <div class="card-tags"><span class="tag">IVt = IVm + IVp + IVf</span><span class="tag">PV = IVt × 1.5</span><span class="tag">Ignition thresholds</span></div>
+      <div class="card-ref">S2-19 to S2-24</div>
+    </a>
+    <a class="sheet-card" href="/cheatsheets/tightness-testing.html">
+      <div class="card-icon">🔬</div>
+      <div class="card-title">Tightness Testing</div>
+      <div class="card-desc">Step-by-step test procedure, let-by tests, permissible pressure drops by meter type, perceptible movement definitions and lock-up explained.</div>
+      <div class="card-tags"><span class="tag">20–21 mbar test pressure</span><span class="tag">Table 1 pressure drops</span><span class="tag">Let-by</span><span class="tag">Lock-up</span></div>
+      <div class="card-ref">S2-5 to S2-18</div>
+    </a>
+    <a class="sheet-card" href="/cheatsheets/gas-rating.html">
+      <div class="card-icon">⏱️</div>
+      <div class="card-title">Gas Rating</div>
+      <div class="card-desc">Rate appliances on U6 imperial test dials and E6 ultrasonic metric meters. Convert between ft³/hr, Btu/hr and kW gross/net.</div>
+      <div class="card-tags"><span class="tag">U6 dial timing</span><span class="tag">E6 2-minute method</span><span class="tag">kW = 1077 × dial ÷ secs</span><span class="tag">Net ↔ Gross</span></div>
+      <div class="card-ref">S3-10 to S3-15</div>
+    </a>
+    <a class="sheet-card" href="/cheatsheets/ventilation-sizing.html">
+      <div class="card-icon">🌬️</div>
+      <div class="card-title">Ventilation Sizing</div>
+      <div class="card-desc">Full calculation routes for open-flued, room-sealed and flueless appliances in rooms and compartments. Multi-appliance selection rules, space heater limits, and vent measurement tables.</div>
+      <div class="card-tags"><span class="tag">(kW−7)×5 open flued</span><span class="tag">Table 1 flueless</span><span class="tag">Table 4 compartment</span><span class="tag">45 W/m³ space heater</span><span class="tag">Multi-appliance</span></div>
+      <div class="card-ref">S5-6 to S5-48</div>
+    </a>
+    <a class="sheet-card" href="/cheatsheets/conversions.html">
+      <div class="card-icon">🔄</div>
+      <div class="card-title">Conversions & Key Constants</div>
+      <div class="card-desc">Unit conversions, key threshold values and constants used across all gas calculations — pressure, volume, energy and area.</div>
+      <div class="card-tags"><span class="tag">mm² ↔ cm²</span><span class="tag">Net ↔ Gross</span><span class="tag">kW → MJ/h</span><span class="tag">Key thresholds</span></div>
+      <div class="card-ref">S2, S3, S5</div>
+    </a>
+  </div>
+
+</main>
+
+</body>
+</html>

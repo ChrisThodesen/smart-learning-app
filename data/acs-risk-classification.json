@@ -1,0 +1,242 @@
+[
+  {
+    "question": "Flexi connection supplying open flued boiler",
+    "answers": [
+      "At Risk (AR) — advise customer and monitor",
+      "Immediately Dangerous (ID) — cap off supply",
+      "Okay — no actions required",
+      "Immediately Dangerous (ID) — cap off supply and RIDDOR"
+    ],
+    "correct": 0,
+    "explanation": "Table 1 situation 7.11 classifies a flexible gas connection to a flued domestic appliance as At Risk (AR). The note states this requirement does not apply to gas-fired tumble dryers installed to BS7624. The operative should advise the responsible person and turn off with permission.",
+    "source": "S7-29"
+  },
+  {
+    "question": "90 degree bend on an open flue",
+    "answers": [
+      "At Risk (AR) — advise customer and monitor",
+      "Immediately Dangerous (ID) — cap off supply",
+      "Okay — no actions required",
+      "Immediately Dangerous (ID) — cap off supply and RIDDOR"
+    ],
+    "correct": 0,
+    "explanation": "Table 1 situation 5.9 lists 90° bends as an example of an installation defect likely to affect open chimney/flue performance, classifying it as At Risk (AR). The engineer must assess the safety of the installation and determine whether the deficiency is serious enough to warrant AR classification.",
+    "source": "S7-26"
+  },
+  {
+    "question": "Bend in flue before 600mm vertical rise",
+    "answers": [
+      "At Risk (AR) — advise customer and monitor",
+      "Immediately Dangerous (ID) — cap off supply",
+      "Okay — no actions required",
+      "Immediately Dangerous (ID) — cap off supply and RIDDOR"
+    ],
+    "correct": 0,
+    "explanation": "Table 1 situation 5.9 lists 'inadequate vertical rise to first bend' as an example of an open flue installation defect, classifying it as At Risk (AR). The engineer must assess the installation and decide whether the deficiency warrants AR classification.",
+    "source": "S7-26"
+  },
+  {
+    "question": "Flue not fully sealed at base where it connects to boiler",
+    "answers": [
+      "Immediately Dangerous (ID) — cap off supply",
+      "At Risk (AR) — advise customer and monitor",
+      "Okay — no actions required",
+      "Immediately Dangerous (ID) — cap off supply and RIDDOR"
+    ],
+    "correct": 0,
+    "explanation": "Table 1 situation 6.2 classifies leakage of products of combustion from a room-sealed chimney system as Immediately Dangerous (ID). An unsealed flue connection at the boiler constitutes a breach of the flue system integrity allowing products of combustion to leak into the building.",
+    "source": "S7-27"
+  },
+  {
+    "question": "Flue not clipped every 1.8 metres",
+    "answers": [
+      "At Risk (AR) — advise customer and monitor",
+      "Immediately Dangerous (ID) — cap off supply",
+      "Okay — no actions required",
+      "Immediately Dangerous (ID) — cap off supply and RIDDOR"
+    ],
+    "correct": 0,
+    "explanation": "Table 1 situation 6.6 classifies a room-sealed chimney/flue system that is inadequately supported (including missing clips or inadequate clipping) as At Risk (AR), where this may cause the system to become unsafe or a breach of integrity is likely.",
+    "source": "S7-27"
+  },
+  {
+    "question": "Signs of spillage around boiler",
+    "answers": [
+      "Immediately Dangerous (ID) — cap off supply",
+      "At Risk (AR) — advise customer and monitor",
+      "Okay — no actions required",
+      "Immediately Dangerous (ID) — cap off supply and RIDDOR"
+    ],
+    "correct": 0,
+    "explanation": "Table 1 situation 1.5 classifies visual signs of spillage or leakage of products of combustion from an appliance and/or chimney/flue as Immediately Dangerous (ID), where there is no evidence that the problem has been corrected.",
+    "source": "S7-20"
+  },
+  {
+    "question": "Heat marks on combustible material surrounding the flue",
+    "answers": [
+      "At Risk (AR) — advise customer and monitor",
+      "Immediately Dangerous (ID) — cap off supply",
+      "Okay — no actions required",
+      "Immediately Dangerous (ID) — cap off supply and RIDDOR"
+    ],
+    "correct": 0,
+    "explanation": "Table 1 situation 7.10 classifies evidence of heat damage to an appliance or adjacent combustible material as At Risk (AR). The note states that functional checks may be required to determine whether the heat damage is due to the appliance, its manner of installation, or misuse.",
+    "source": "S7-29"
+  },
+  {
+    "question": "No ventilation for an open flued appliance",
+    "answers": [
+      "At Risk (AR) — advise customer and monitor",
+      "Immediately Dangerous (ID) — cap off supply",
+      "Okay — no actions required",
+      "Immediately Dangerous (ID) — cap off supply and RIDDOR"
+    ],
+    "correct": 0,
+    "explanation": "Table 1 situation 4.1 classifies open-flued appliances in a room requiring purpose-provided permanent combustion air supply where that supply is less than required as At Risk (AR). For existing installations, 90% or more of the requirement is considered acceptable provided the appliance is otherwise operating safely.",
+    "source": "S7-24"
+  },
+  {
+    "question": "Blocked vent for an open flued boiler",
+    "answers": [
+      "At Risk (AR) — advise customer and monitor",
+      "Immediately Dangerous (ID) — cap off supply",
+      "Okay — no actions required",
+      "Immediately Dangerous (ID) — cap off supply and RIDDOR"
+    ],
+    "correct": 0,
+    "explanation": "Table 1 situation 4.1 classifies an open-flued appliance where the combustion air supply is less than required as At Risk (AR). A blocked vent reduces the available air supply below the required level. For existing installations, 90% or more of the ventilator requirement is considered acceptable provided the appliance is otherwise operating safely.",
+    "source": "S7-24"
+  },
+  {
+    "question": "No 5 minute warning label on a flueless water heater",
+    "answers": [
+      "At Risk (AR) — advise customer and monitor",
+      "Immediately Dangerous (ID) — cap off supply",
+      "Okay — no actions required",
+      "Immediately Dangerous (ID) — cap off supply and RIDDOR"
+    ],
+    "correct": 0,
+    "explanation": "Table 1 situation 8.4 specifically classifies a flueless water heating appliance without a 5 minute warning label as At Risk (AR). The label (shown in Appendix 3) states the appliance should not be used for more than 5 minutes continuously and should be serviced at least once a year.",
+    "source": "S7-30"
+  },
+  {
+    "question": "Heat marks on wooden shelf above water heater",
+    "answers": [
+      "At Risk (AR) — advise customer and monitor",
+      "Immediately Dangerous (ID) — cap off supply",
+      "Okay — no actions required",
+      "Immediately Dangerous (ID) — cap off supply and RIDDOR"
+    ],
+    "correct": 0,
+    "explanation": "Table 1 situation 7.10 classifies evidence of heat damage to an appliance or adjacent combustible material as At Risk (AR). The note states functional checks may be required to determine whether the heat damage is due to the appliance, its manner of installation, or misuse.",
+    "source": "S7-29"
+  },
+  {
+    "question": "Yellow flame on water heater that was serviced two days ago",
+    "answers": [
+      "Immediately Dangerous (ID) — cap off supply and RIDDOR",
+      "At Risk (AR) — advise customer and monitor",
+      "Okay — no actions required",
+      "Immediately Dangerous (ID) — cap off supply"
+    ],
+    "correct": 0,
+    "explanation": "Table 1 situation 7.6 classifies failure to achieve satisfactory combustion readings on a flueless appliance as Immediately Dangerous (ID). A yellow flame indicates incomplete combustion. Because the appliance was recently serviced (poor workmanship), this is also RIDDOR reportable under regulation 11(2) as the dangerous situation results from incorrect servicing.",
+    "source": "S7-28"
+  },
+  {
+    "question": "Signs of spillage above a burner on a water heater",
+    "answers": [
+      "Immediately Dangerous (ID) — cap off supply",
+      "At Risk (AR) — advise customer and monitor",
+      "Okay — no actions required",
+      "Immediately Dangerous (ID) — cap off supply and RIDDOR"
+    ],
+    "correct": 0,
+    "explanation": "Table 1 situation 1.5 classifies visual signs of spillage or leakage of products of combustion from an appliance and/or chimney/flue as Immediately Dangerous (ID) where there is no evidence the problem has been corrected. Spillage staining above a burner on a water heater is direct evidence of products of combustion entering the room.",
+    "source": "S7-20"
+  },
+  {
+    "question": "Safety lid not operating correctly on cooker",
+    "answers": [
+      "Immediately Dangerous (ID) — cap off supply",
+      "At Risk (AR) — advise customer and monitor",
+      "Okay — no actions required",
+      "Immediately Dangerous (ID) — cap off supply and RIDDOR"
+    ],
+    "correct": 0,
+    "explanation": "Table 1 situation 7.4 classifies appliance gas controls and safety devices that affect the safe operation of an appliance, which are inoperative, failing to danger, or disabled, as Immediately Dangerous (ID). The cooker safety lid incorporates a low pressure cut-off device — if this is not operating correctly gas could pass to the burner with the lid closed, creating an immediate danger.",
+    "source": "S7-28"
+  },
+  {
+    "question": "Cooker standing on combustible material",
+    "answers": [
+      "At Risk (AR) — advise customer and monitor",
+      "Immediately Dangerous (ID) — cap off supply",
+      "Okay — no actions required",
+      "Immediately Dangerous (ID) — cap off supply and RIDDOR"
+    ],
+    "correct": 0,
+    "explanation": "Table 1 situation 7.10 classifies evidence of heat damage to an appliance or adjacent combustible material as At Risk (AR). A cooker standing on combustible material poses a risk of heat damage or fire. Functional checks may be required to determine whether any heat damage is due to the appliance, its installation, or misuse.",
+    "source": "S7-29"
+  },
+  {
+    "question": "Unstable free-standing cooker with no stability chain attached",
+    "answers": [
+      "At Risk (AR) — advise customer and monitor",
+      "Immediately Dangerous (ID) — cap off supply",
+      "Okay — no actions required",
+      "Immediately Dangerous (ID) — cap off supply and RIDDOR"
+    ],
+    "correct": 0,
+    "explanation": "Table 1 situation 7.12 classifies an appliance found to be insecure and/or not stable so that it is potentially unsafe as At Risk (AR). The note specifically states that a stable free-standing cooking appliance using a flexible connection without a stability device secured to the fabric of the building (e.g. stability bracket or chain) would not be classified as AR — but an unstable cooker without any chain would be AR.",
+    "source": "S7-29"
+  },
+  {
+    "question": "Incomplete combustion on one hob burner, but all other hobs burning correctly",
+    "answers": [
+      "Immediately Dangerous (ID) — cap off supply",
+      "At Risk (AR) — advise customer and monitor",
+      "Okay — no actions required",
+      "Immediately Dangerous (ID) — cap off supply and RIDDOR"
+    ],
+    "correct": 0,
+    "explanation": "Table 1 situation 7.7 classifies a flued or flueless appliance with visual signs of incomplete combustion at a main burner as At Risk (AR) for a flued appliance, and ID for flueless. A cooker hob is flueless — incomplete combustion on a flueless appliance is Immediately Dangerous (ID) as products of combustion are released directly into the room. The fact other hobs burn correctly does not change the classification for the affected burner.",
+    "source": "S7-28"
+  },
+  {
+    "question": "5 mbar pressure drop recorded on a G4 meter during a 2 minute tightness test",
+    "answers": [
+      "Immediately Dangerous (ID) — cap off supply",
+      "At Risk (AR) — advise customer and monitor",
+      "Okay — no actions required",
+      "Immediately Dangerous (ID) — cap off supply and RIDDOR"
+    ],
+    "correct": 0,
+    "explanation": "Table 1 (tightness testing, Section 2) states the maximum permissible pressure drop for a diaphragm meter ≤6m³/hr (U6/G4) with pipework ≤28mm during a 2 minute test is 4 mbar. A 5 mbar drop exceeds this limit, meaning the installation fails the tightness test. Table 1 situation 1.2 classifies an installation that fails a tightness test as Immediately Dangerous (ID).",
+    "source": "S2-7"
+  },
+  {
+    "question": "What label is attached to both AR and ID appliances to warn the customer not to use them?",
+    "answers": [
+      "DANGER — SAFETY WARNING — DO NOT USE (GSR35)",
+      "DANGER — SAFETY WARNING — DEVICE HAS BEEN CAPPED",
+      "WARNING — UNCOMMISSIONED APPLIANCE — DO NOT USE",
+      "CONCERN FOR SAFETY — DO NOT USE"
+    ],
+    "correct": 0,
+    "explanation": "Appendix 3 of Section 7 shows that the 'Dangerous Do Not Use' label (GSR35), bearing the text 'DANGER — SAFETY WARNING — DO NOT USE', may be used for both ID and AR situations. Sections 3.1 and 3.2 both require this label to be attached to the appliance/installation in a prominent position.",
+    "source": "S7-43"
+  },
+  {
+    "question": "When issuing a warning notice for an AR situation, what additional step applies in rented accommodation?",
+    "answers": [
+      "A copy of the warning notice must also be provided to the owner, landlord or managing agent",
+      "The Gas Emergency Service must be contacted immediately",
+      "RIDDOR must be reported to the HSE within 14 days",
+      "The appliance must be disconnected and capped regardless of permission"
+    ],
+    "correct": 0,
+    "explanation": "Section 3.2(f) states that if the user is not the owner of the appliance/installation, a copy of the warning notice should also be provided to the owner, landlord or managing agent. This applies for both AR and ID situations and is reinforced in section 3.3 which places specific responsibilities on landlords and managing agents when informed of an unsafe appliance.",
+    "source": "S7-12"
+  }
+]

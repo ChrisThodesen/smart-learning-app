@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ventilation Sizing — Gas Safety Cheat Sheet</title>
+<style>
+  :root {
+    --navy: #0d1b2a;
+    --navy-mid: #1a2e45;
+    --cyan: #00c2d4;
+    --cyan-dark: #009aaa;
+    --text: #e8f0f7;
+    --text-dim: #8aa4bf;
+    --correct: #2ecc71;
+    --warn: #f39c12;
+    --danger: #e74c3c;
+    --card: #162030;
+    --border: #243650;
+    --highlight: #1e3a5f;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: var(--navy);
+    color: var(--text);
+    line-height: 1.6;
+    font-size: 15px;
+  }
+
+  header {
+    background: linear-gradient(135deg, var(--navy-mid), #0a2540);
+    border-bottom: 3px solid var(--cyan);
+    padding: 24px 24px 16px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  header h1 { font-size: 1.4rem; color: var(--cyan); font-weight: 700; }
+  header p  { font-size: 0.82rem; color: var(--text-dim); margin-top: 2px; }
+
+  nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 10px;
+  }
+
+  nav a {
+    background: var(--highlight);
+    color: var(--cyan);
+    text-decoration: none;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.76rem;
+    font-weight: 600;
+    border: 1px solid var(--border);
+    transition: background 0.2s;
+  }
+  nav a:hover { background: var(--cyan); color: var(--navy); }
+
+  main { max-width: 900px; margin: 0 auto; padding: 20px 16px 60px; }
+
+  section { margin-bottom: 40px; }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--navy-mid);
+    border-left: 4px solid var(--cyan);
+    border-radius: 0 8px 8px 0;
+    padding: 12px 16px;
+    margin-bottom: 16px;
+  }
+
+  .section-header .icon { font-size: 1.6rem; }
+  .section-header h2 { font-size: 1.1rem; color: var(--cyan); font-weight: 700; }
+  .section-header .ref { font-size: 0.75rem; color: var(--text-dim); margin-top: 1px; }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 14px;
+  }
+
+  .card h3 {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--cyan);
+    margin-bottom: 10px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .formula-box {
+    background: var(--highlight);
+    border: 1px solid var(--cyan-dark);
+    border-radius: 6px;
+    padding: 10px 14px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.88rem;
+    margin: 8px 0;
+    color: #b8e0ff;
+  }
+
+  .formula-box .label {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.82rem;
+    margin: 10px 0;
+  }
+
+  th {
+    background: var(--highlight);
+    color: var(--cyan);
+    padding: 7px 10px;
+    text-align: left;
+    font-size: 0.78rem;
+    font-weight: 600;
+    border: 1px solid var(--border);
+  }
+
+  td {
+    padding: 6px 10px;
+    border: 1px solid var(--border);
+    vertical-align: top;
+  }
+
+  tr:nth-child(even) td { background: rgba(255,255,255,0.03); }
+
+  .worked {
+    background: rgba(0,194,212,0.05);
+    border: 1px solid rgba(0,194,212,0.25);
+    border-radius: 6px;
+    padding: 12px 14px;
+    margin-top: 10px;
+    font-size: 0.84rem;
+  }
+
+  .worked .title {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--cyan);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+  }
+
+  .worked code {
+    display: block;
+    font-family: 'Courier New', monospace;
+    font-size: 0.83rem;
+    color: #b8e0ff;
+    line-height: 1.8;
+    white-space: pre-wrap;
+  }
+
+  .worked .result {
+    margin-top: 8px;
+    color: var(--correct);
+    font-weight: 700;
+    font-family: 'Courier New', monospace;
+  }
+
+  .callout {
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin: 10px 0;
+    font-size: 0.84rem;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .callout.info  { background: rgba(0,122,212,0.1); border-left: 3px solid #2980b9; }
+  .callout.warn  { background: rgba(243,156,18,0.1); border-left: 3px solid var(--warn); }
+  .callout.danger { background: rgba(231,76,60,0.1); border-left: 3px solid var(--danger); }
+  .callout.ok    { background: rgba(46,204,113,0.1); border-left: 3px solid var(--correct); }
+
+  .callout .ico { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+  .callout p { margin: 0; }
+  .callout strong { color: inherit; }
+
+  .pill {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    margin-right: 4px;
+  }
+  .pill.pass   { background: rgba(46,204,113,0.2); color: var(--correct); border: 1px solid var(--correct); }
+  .pill.fail   { background: rgba(231,76,60,0.2); color: var(--danger); border: 1px solid var(--danger); }
+  .pill.warn   { background: rgba(243,156,18,0.2); color: var(--warn); border: 1px solid var(--warn); }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  @media (max-width: 600px) {
+    .two-col { grid-template-columns: 1fr; }
+  }
+
+  .step {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    margin-bottom: 8px;
+    font-size: 0.84rem;
+  }
+
+  .step .num {
+    background: var(--cyan);
+    color: var(--navy);
+    font-weight: 700;
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  p { margin-bottom: 8px; font-size: 0.84rem; }
+  ul { margin: 6px 0 6px 18px; font-size: 0.84rem; }
+  li { margin-bottom: 3px; }
+
+  .source-tag {
+    display: inline-block;
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1px 5px;
+    margin-left: 6px;
+    font-family: monospace;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🌬️ Ventilation Sizing</h1>
+  <p>Vent area calculations for all appliance types and locations — Gas Safety Technical Guide v5.0</p>
+  <nav>
+    <a href="cheatsheets.html">← All Cheat Sheets</a>
+    <a href="#vent-step0">🏠 Room Volume</a>
+    <a href="#vent-routeA">Open Flued</a>
+    <a href="#vent-routeB">Compartment</a>
+    <a href="#vent-routeC">Flueless</a>
+    <a href="#vent-multi">Multi-Appliance</a>
+  </nav>
+</header>
+
+<main>
+<section id="vent">
+  <div class="section-header">
+    <span class="icon">🌬️</span>
+    <div>
+      <h2>Ventilation Sizing</h2>
+      <div class="ref">Source: S5-6 to S5-48</div>
+    </div>
+  </div>
+
+  <!-- STEP 0: Room Volume -->
+  <div class="card">
+    <h3>Step 0 — Calculate room volume <span class="source-tag">S5-7</span></h3>
+    <p>Room volume is needed before you can check flueless appliance limits or space heater maximums.</p>
+    <div class="formula-box">
+      <div class="label">Room Volume</div>
+      Volume (m³) = Length (m) × Width (m) × Height (m)
+    </div>
+    <div class="callout info">
+      <span class="ico">ℹ️</span>
+      <p>A room is generally <strong>not less than 5 m³</strong>. If people are likely to spend time in a space, treat it as a room. If in doubt, treat it as a compartment — compartment rules are more stringent.</p>
+    </div>
+    <div class="worked">
+      <div class="title">Example — room 4m × 3m × 2.4m</div>
+      <code>Volume = 4 × 3 × 2.4</code>
+      <div class="result">= 28.8 m³</div>
+    </div>
+  </div>
+
+  <!-- STEP 1: Decision flowchart -->
+  <div class="card">
+    <h3>Step 1 — Identify appliance type and location</h3>
+    <p>This determines which calculation route to follow. Every scenario branches from here.</p>
+    <table>
+      <tr><th>Appliance type</th><th>In a room</th><th>In a compartment</th></tr>
+      <tr>
+        <td><strong>Room sealed</strong></td>
+        <td>No vent required for combustion air.<br>Compartment rules apply if enclosed.</td>
+        <td>High + low level vents required to dissipate heat → <em>Table 4 route</em></td>
+      </tr>
+      <tr>
+        <td><strong>Open flued</strong></td>
+        <td>Adventitious allowance of 7 kW applies → <em>(kW − 7) × 5 route</em></td>
+        <td>No adventitious allowance → <em>Table 4 route (full kW)</em></td>
+      </tr>
+      <tr>
+        <td><strong>Flueless</strong></td>
+        <td>Room volume + appliance type determine vent → <em>Table 1 route</em></td>
+        <td><span class="pill fail">NOT PERMITTED</span> — flueless appliances must not be in compartments</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- ROUTE A: Open flued in a room -->
+  <div class="card">
+    <h3>Route A — Open flued appliance in a room <span class="source-tag">S5-7</span></h3>
+    <p>A fixed adventitious allowance of <strong>35 cm²</strong> (equivalent to 7 kW) is assumed, because the flue draws air in through gaps around doors and windows. Only the input <strong>above 7 kW</strong> needs a purpose-provided vent.</p>
+
+    <div class="formula-box">
+      <div class="label">Required vent free area (cm²)</div>
+      Vent = (Net heat input (kW) − 7) × 5
+    </div>
+
+    <div class="two-col">
+      <div class="callout ok">
+        <span class="ico">✅</span>
+        <p>Net input <strong>≤ 7 kW</strong>: no purpose-provided vent required.</p>
+      </div>
+      <div class="callout danger">
+        <span class="ico">🚫</span>
+        <p>Adventitious allowance does <strong>NOT</strong> apply to flueless appliances or compartments.</p>
+      </div>
+    </div>
+
+    <div class="worked">
+      <div class="title">Example A1 — 23 kW open-flued boiler in a kitchen</div>
+      <code>Vent = (23 − 7) × 5 = 16 × 5</code>
+      <div class="result">= 80 cm²</div>
+    </div>
+
+    <div class="worked" style="margin-top:8px">
+      <div class="title">Example A2 — 6 kW open-flued wall heater</div>
+      <code>Input ≤ 7 kW → adventitious air is sufficient</code>
+      <div class="result">No vent required</div>
+    </div>
+
+    <div class="callout warn" style="margin-top:10px">
+      <span class="ico">⚠️</span>
+      <p>If the input is given as <strong>gross</strong> (common on older appliances): convert first.<br>Net = Gross ÷ 1.11. Then apply (Net − 7) × 5.</p>
+    </div>
+  </div>
+
+  <!-- ROUTE B: Compartment ventilation -->
+  <div class="card">
+    <h3>Route B — Compartment ventilation: Table 4 <span class="source-tag">S5-36</span></h3>
+    <p>Compartments need <strong>both</strong> a high-level and a low-level vent. No adventitious allowance — use the <strong>full</strong> kW in all calculations.</p>
+    <p>Air vents must communicate with the same room or space, or both be on the same outside wall. High and low vents should be as far apart vertically as possible.</p>
+
+    <table>
+      <tr>
+        <th>Appliance type</th>
+        <th>Vent position</th>
+        <th>Air from room (cm²/kW)</th>
+        <th>Air from outside (cm²/kW)</th>
+      </tr>
+      <tr><td rowspan="2"><strong>Open flued</strong></td><td>High level</td><td>10</td><td>5</td></tr>
+      <tr><td>Low level</td><td>20</td><td>10</td></tr>
+      <tr><td rowspan="2"><strong>Room sealed</strong></td><td>High level</td><td>10</td><td>5</td></tr>
+      <tr><td>Low level</td><td>10</td><td>5</td></tr>
+    </table>
+
+    <div class="worked" style="margin-top:10px">
+      <div class="title">Example B1 — 24 kW open-flued boiler in compartment, air from room</div>
+      <code>High level: 24 × 10 = 240 cm²
+Low level:  24 × 20 = 480 cm²</code>
+    </div>
+    <div class="worked" style="margin-top:8px">
+      <div class="title">Example B2 — same boiler, air direct from outside</div>
+      <code>High level: 24 × 5  = 120 cm²
+Low level:  24 × 10 = 240 cm²</code>
+    </div>
+    <div class="worked" style="margin-top:8px">
+      <div class="title">Example B3 — 28 kW room-sealed boiler in compartment, air from room</div>
+      <code>High level: 28 × 10 = 280 cm²
+Low level:  28 × 10 = 280 cm²</code>
+    </div>
+
+    <div class="callout danger" style="margin-top:10px">
+      <span class="ico">🚫</span>
+      <p>For open-flued appliances in compartments: vents must <strong>not</strong> communicate with a bathroom, shower room, or (for new installs after Jan 1996) a bedroom — unless the appliance is &lt; 14 kW and fitted with a vitiation sensing device or thermal spillage detector.</p>
+    </div>
+    <div class="callout warn">
+      <span class="ico">⚠️</span>
+      <p>For <strong>range-rated appliances</strong>: size vents on <strong>maximum</strong> heat input, not the set input.</p>
+    </div>
+  </div>
+
+  <!-- ROUTE C: Flueless appliances -->
+  <div class="card">
+    <h3>Route C — Flueless appliances: Table 1 <span class="source-tag">S5-7/8</span></h3>
+    <p>Flueless appliances burn gas in the room itself. Three things must be established: <strong>appliance type</strong>, <strong>room volume</strong>, and whether there is a <strong>door or window direct to outside</strong>. No adventitious allowance applies.</p>
+
+    <div class="callout info">
+      <span class="ico">ℹ️</span>
+      <p>All flueless appliance installations <strong>also</strong> require an openable window, hinged panel, adjustable louvre, or equivalent that opens directly to outside air — in addition to any permanent vent. If no openable window is available, mechanical or passive stack ventilation must be provided.</p>
+    </div>
+
+    <h3 style="margin-top:12px">Table 1 — Minimum permanent vent free area (flueless appliances) <span class="source-tag">S5-8</span></h3>
+    <table>
+      <tr>
+        <th>Appliance type</th>
+        <th>Max input limit</th>
+        <th>Room volume (m³)</th>
+        <th>Permanent vent (cm²)</th>
+        <th>Openable window also required?</th>
+      </tr>
+      <tr>
+        <td rowspan="3"><strong>Domestic oven, hotplate, grill</strong>, or any combination</td>
+        <td rowspan="3">None</td>
+        <td>&lt; 5</td>
+        <td>100</td>
+        <td rowspan="3">Yes <em>(unless door opens direct to outside)</em></td>
+      </tr>
+      <tr><td>5 to 10</td><td>50</td></tr>
+      <tr><td>&gt; 10</td><td>Nil</td></tr>
+      <tr>
+        <td rowspan="4"><strong>Instantaneous water heater</strong></td>
+        <td rowspan="4">11 kW</td>
+        <td>&lt; 5</td>
+        <td><span class="pill fail">Not permitted</span></td>
+        <td rowspan="4">Yes</td>
+      </tr>
+      <tr><td>5 to 10</td><td>100</td></tr>
+      <tr><td>&gt; 10 to 20</td><td>50</td></tr>
+      <tr><td>&gt; 20</td><td>Nil</td></tr>
+      <tr>
+        <td><strong>Space heater in a room</strong></td>
+        <td>45 W/m³ of heated space</td>
+        <td>—</td>
+        <td>100 + 55 for every kW above 2.7 kW</td>
+        <td>Yes</td>
+      </tr>
+      <tr>
+        <td><strong>Space heater in an internal space</strong></td>
+        <td>90 W/m³ of heated space</td>
+        <td>—</td>
+        <td>100 + 27.5 for every kW above 5.4 kW</td>
+        <td>Yes</td>
+      </tr>
+      <tr>
+        <td><strong>Refrigerator</strong></td>
+        <td>None</td>
+        <td>Any</td>
+        <td>Nil</td>
+        <td>No</td>
+      </tr>
+      <tr>
+        <td><strong>Boiling ring (single only)</strong></td>
+        <td>None</td>
+        <td>Any</td>
+        <td>Nil</td>
+        <td>No</td>
+      </tr>
+    </table>
+    <p style="font-size:0.76rem;color:var(--text-dim);margin-top:6px;">Two or more boiling rings together are treated as a hotplate — use the hotplate row above.</p>
+  </div>
+
+  <!-- Space heater max input calc -->
+  <div class="card">
+    <h3>Calculating max permitted input for a flueless space heater <span class="source-tag">S5-8</span></h3>
+    <p>Before sizing the vent, you first need to confirm the appliance is not too large for the room.</p>
+
+    <div class="two-col">
+      <div class="formula-box">
+        <div class="label">In a room — max input limit</div>
+        Max input (W) = 45 × Room volume (m³)
+        Max input (kW) = 45 × Volume ÷ 1000
+      </div>
+      <div class="formula-box">
+        <div class="label">In an internal space — max input limit</div>
+        Max input (W) = 90 × Room volume (m³)
+        Max input (kW) = 90 × Volume ÷ 1000
+      </div>
+    </div>
+
+    <div class="worked">
+      <div class="title">Example C1 — Is a 1.2 kW space heater acceptable in a 23 m³ room?</div>
+      <code>Max input = 45 W/m³ × 23 m³ = 1,035 W = 1.035 kW
+Appliance is 1.2 kW</code>
+      <div class="result" style="color:var(--danger)">1.2 kW &gt; 1.035 kW → appliance exceeds room limit. Not acceptable as-is.</div>
+    </div>
+
+    <div class="worked" style="margin-top:8px">
+      <div class="title">Example C2 — Space heater vent size: 3.5 kW heater in a room</div>
+      <code>Vent = 100 + 55 × (3.5 − 2.7)
+     = 100 + 55 × 0.8
+     = 100 + 44</code>
+      <div class="result">= 144 cm² (plus openable window to outside)</div>
+    </div>
+
+    <div class="worked" style="margin-top:8px">
+      <div class="title">Example C3 — Flueless instantaneous water heater, 11 kW, in a room of 8 m³</div>
+      <code>Room volume = 8 m³ → falls in "5 to 10" band</code>
+      <div class="result">= 100 cm² vent required, direct to outside + openable window</div>
+    </div>
+  </div>
+
+  <!-- Multi-appliance -->
+  <div class="card">
+    <h3>Multi-appliance installations — choosing the correct total <span class="source-tag">S5-9</span></h3>
+    <p>When two or more appliances are in the same room or space, the required air vent is the <strong>largest</strong> of the following three values:</p>
+
+    <table>
+      <tr><th>#</th><th>Calculate…</th><th>Method</th></tr>
+      <tr>
+        <td>1</td>
+        <td>Total flueless space heater requirement</td>
+        <td>Sum the vent areas from Table 1 for all flueless space heaters</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>Total open flued space heater requirement</td>
+        <td>Sum (kW − 7) × 5 for all open-flued space heaters<br><em>Exception: two similar open-flued gas fires both &lt; 7 kW and total ≤ 14 kW in a through room with two chimneys → no vent normally needed. Does NOT apply to DFE fires.</em></td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>Greatest individual rated input of any other single appliance</td>
+        <td>Take the single highest vent requirement from any remaining appliance type</td>
+      </tr>
+    </table>
+
+    <div class="callout info" style="margin-top:10px">
+      <span class="ico">ℹ️</span>
+      <p>In multi-appliance installations, a <strong>space heater</strong> includes: central heating boiler, warm air unit, gas fire, or convector. A fire/back boiler combination uses the <strong>total</strong> combined maximum rated input.</p>
+    </div>
+    <div class="callout warn">
+      <span class="ico">⚠️</span>
+      <p>The permanent ventilation in a multi-appliance room should, wherever practicable, be sited <strong>between the appliances</strong>.</p>
+    </div>
+
+    <div class="worked">
+      <div class="title">Example D1 — Kitchen: 23 kW open-flued boiler + flueless oven in a 15 m³ room</div>
+      <code>Open-flued boiler:  (23 − 7) × 5 = 80 cm²
+Flueless oven:      room &gt;10 m³   = Nil cm²  (from Table 1)
+─────────────────────────────────────
+Route 1 (flueless total):       0 cm²
+Route 2 (open flued total):    80 cm²
+Route 3 (greatest individual): 80 cm²</code>
+      <div class="result">Required vent = 80 cm² (largest value)</div>
+    </div>
+
+    <div class="worked" style="margin-top:8px">
+      <div class="title">Example D2 — Lounge: 23 kW open-flued boiler + 3.5 kW flueless space heater in a 25 m³ room</div>
+      <code>Max heater input for room = 45 × 25 ÷ 1000 = 1.125 kW → 3.5 kW exceeds limit!
+
+Assuming heater is within room limit:
+Flueless space heater vent: 100 + 55 × (3.5 − 2.7) = 144 cm²
+Open-flued boiler vent:     (23 − 7) × 5           =  80 cm²
+─────────────────────────────────────
+Route 1 (flueless total):      144 cm²
+Route 2 (open flued total):     80 cm²
+Route 3 (greatest individual): 144 cm²</code>
+      <div class="result">Required vent = 144 cm² (largest value)</div>
+      <p style="margin-top:6px;font-size:0.78rem;color:var(--danger);">⚠ Always check the space heater isn't oversized for the room first (45 W/m³ rule).</p>
+    </div>
+  </div>
+
+  <!-- Specific appliance types -->
+  <div class="card">
+    <h3>Specific appliance types — vent quick reference <span class="source-tag">S5-32/33</span></h3>
+    <table>
+      <tr><th>Appliance type</th><th>Vent requirement</th></tr>
+      <tr>
+        <td><strong>Room sealed (in a room)</strong></td>
+        <td>No room vent required — combustion air taken externally via balanced flue</td>
+      </tr>
+      <tr>
+        <td><strong>Inset live fuel effect fire ≤ 7 kW</strong></td>
+        <td>No vent normally required (check manufacturer's instructions)</td>
+      </tr>
+      <tr>
+        <td><strong>Inset live fuel effect fire &gt; 7 kW</strong></td>
+        <td>5 cm² for every kW in excess of 7 kW</td>
+      </tr>
+      <tr>
+        <td><strong>Decorative fuel effect (DFE) fire ≤ 20 kW</strong></td>
+        <td>100 cm² permanent ventilation (per appliance, unless manufacturer specifies otherwise)</td>
+      </tr>
+      <tr>
+        <td><strong>DFE fire in fireplace with no throat (under a canopy)</strong></td>
+        <td>50% of the cross-sectional area of the chimney</td>
+      </tr>
+      <tr>
+        <td><strong>Two DFE fires (both ≤ 20 kW) in same room</strong></td>
+        <td>200 cm² + 35 cm² (adventitious allowance) = <strong>235 cm²</strong></td>
+      </tr>
+      <tr>
+        <td><strong>Extract fan affecting open-flued appliance</strong></td>
+        <td>Determine by opening window until flue performs satisfactorily, measure area. General guide: +50 cm² usually sufficient.</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- DFE Table 2 -->
+  <div class="card">
+    <h3>Table 2 — DFE fires: ventilation scenarios <span class="source-tag">S5-33</span></h3>
+    <table>
+      <tr><th>#</th><th>Scenario</th><th>Location</th><th>Vent requirement</th></tr>
+      <tr><td>1</td><td>One DFE up to 7 kW</td><td>Room</td><td>100 cm² minimum (check manufacturer — some may not require any)</td></tr>
+      <tr><td>2</td><td>One DFE 7–20 kW</td><td>Room</td><td>100 cm² minimum (or per manufacturer)</td></tr>
+      <tr><td>3</td><td>Two DFEs both ≤ 20 kW</td><td>Room</td><td>200 cm² + 35 cm² (adventitious) = 235 cm²</td></tr>
+      <tr><td>4</td><td>Two DFEs both ≤ 20 kW</td><td>Through room</td><td>200 cm² (adventitious already factored)</td></tr>
+      <tr>
+        <td>5</td>
+        <td>One or two DFEs + other appliances</td>
+        <td>Through room with two open flues</td>
+        <td>DFE requirement (options 1–4) PLUS the greatest of:<br>
+          a) 5 cm²/kW of open-flued space heating appliances<br>
+          b) Total flueless space heating requirement<br>
+          c) Requirement for other single appliance without draught diverter<br>
+          d) 5 cm²/kW for a single open-flued non-space-heating appliance (e.g. water heater)
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- Measuring existing vents -->
+  <div class="card">
+    <h3>Measuring existing air vents <span class="source-tag">S5-39/40</span></h3>
+    <p>Grilles must allow a <strong>5 mm ball</strong> through but stop a <strong>10 mm ball</strong>. Always check vents are not blocked by cling film, cobwebs, insulating materials, or fly screens.</p>
+    <p>For a <strong>louvred vent</strong>: measure the <strong>perpendicular</strong> dimension, not the diagonal. (13 mm measured diagonally = only 10 mm perpendicular — use 10 mm.)</p>
+    <p>For <strong>two vents in series</strong>: use the free area of the <strong>smaller</strong> vent. Space between them must be clear.</p>
+    <p>For a <strong>drilled door vent</strong>: free area = drilled hole area only. If grille sits flush to door surface, area is reduced further and must be carefully assessed. Drilled door vents are inadvisable if heat input &gt; 30 kW.</p>
+
+    <div class="formula-box" style="margin-top:8px">
+      <div class="label">Free area of a rectangular hole grid</div>
+      Area (mm²) = Hole width (mm) × Hole height (mm) × Number of holes
+      Area (cm²) = Area (mm²) ÷ 100
+    </div>
+
+    <div class="worked">
+      <div class="title">Example — grille with 9 rectangular holes each 10 mm × 20 mm</div>
+      <code>Area = 10 × 20 × 9 = 1,800 mm²
+     = 1,800 ÷ 100</code>
+      <div class="result">= 18 cm²</div>
+    </div>
+
+    <h3 style="margin-top:14px">Table 5 — Round holes (cm²) <span class="source-tag">S5-46</span></h3>
+    <table>
+      <tr><th>Hole dia.</th><th>5</th><th>10</th><th>20</th><th>25</th><th>40</th><th>50 holes</th></tr>
+      <tr><td>6 mm</td><td>1</td><td>2</td><td>5</td><td>7</td><td>11</td><td>14 cm²</td></tr>
+      <tr><td>8 mm</td><td>2</td><td>5</td><td>10</td><td>12</td><td>20</td><td>25 cm²</td></tr>
+      <tr><td>10 mm</td><td>3</td><td>7</td><td>15</td><td>19</td><td>31</td><td>39 cm²</td></tr>
+      <tr><td>15 mm</td><td>8</td><td>17</td><td>35</td><td>44</td><td>70</td><td>88 cm²</td></tr>
+      <tr><td>20 mm</td><td>15</td><td>31</td><td>62</td><td>78</td><td>125</td><td>157 cm²</td></tr>
+      <tr><td>29 mm</td><td>33</td><td>66</td><td>132</td><td>165</td><td>264</td><td>330 cm²</td></tr>
+    </table>
+
+    <h3 style="margin-top:12px">Table 6 — Square holes (cm²) <span class="source-tag">S5-46</span></h3>
+    <table>
+      <tr><th>Hole size</th><th>8</th><th>16</th><th>24</th><th>32</th><th>48</th><th>96 holes</th></tr>
+      <tr><td>6 × 6 mm</td><td>2</td><td>5</td><td>8</td><td>11</td><td>17</td><td>34 cm²</td></tr>
+      <tr><td>8 × 8 mm</td><td>5</td><td>10</td><td>15</td><td>20</td><td>30</td><td>61 cm²</td></tr>
+      <tr><td>10 × 10 mm</td><td>8</td><td>16</td><td>24</td><td>32</td><td>48</td><td>96 cm²</td></tr>
+      <tr><td>13 × 13 mm</td><td>13</td><td>27</td><td>40</td><td>54</td><td>81</td><td>162 cm²</td></tr>
+    </table>
+
+    <h3 style="margin-top:12px">Table 7 — Slotted holes (cm², selected rows) <span class="source-tag">S5-47</span></h3>
+    <table>
+      <tr><th>Slot size</th><th>6</th><th>8</th><th>10</th><th>20</th><th>40 holes</th></tr>
+      <tr><td>6 × 25 mm</td><td>9</td><td>12</td><td>15</td><td>30</td><td>60 cm²</td></tr>
+      <tr><td>6 × 51 mm</td><td>18</td><td>24</td><td>30</td><td>61</td><td>122 cm²</td></tr>
+      <tr><td>8 × 25 mm</td><td>12</td><td>16</td><td>20</td><td>40</td><td>80 cm²</td></tr>
+      <tr><td>8 × 51 mm</td><td>24</td><td>32</td><td>40</td><td>81</td><td>163 cm²</td></tr>
+      <tr><td>10 × 25 mm</td><td>15</td><td>20</td><td>25</td><td>50</td><td>100 cm²</td></tr>
+      <tr><td>10 × 51 mm</td><td>30</td><td>40</td><td>51</td><td>102</td><td>204 cm²</td></tr>
+      <tr><td>13 × 25 mm</td><td>19</td><td>26</td><td>32</td><td>65</td><td>130 cm²</td></tr>
+      <tr><td>13 × 51 mm</td><td>39</td><td>53</td><td>66</td><td>132</td><td>265 cm²</td></tr>
+    </table>
+  </div>
+</section>
+</main>
+
+</body>
+</html>

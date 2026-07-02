@@ -1,0 +1,302 @@
+[
+  {
+    "question": "When carrying out a tightness test on a domestic gas installation, how long is the final test period during which you check for perceptible movement of the gauge?",
+    "answers": [
+      "2 minutes",
+      "1 minute",
+      "3 minutes",
+      "5 minutes"
+    ],
+    "correct": 0,
+    "explanation": "After allowing 1 minute for temperature stabilisation and re-adjusting the pressure to between 20 and 21 mbar, the gauge is observed for any perceptible movement (fall) over a 2 minute period. If there is no movement and no smell of gas, the installation passes.",
+    "source": "S2-11"
+  },
+  {
+    "question": "Before the main 2-minute tightness test, a let-by check is carried out. How long do you observe the gauge during a let-by test?",
+    "answers": [
+      "1 minute",
+      "2 minutes",
+      "30 seconds",
+      "3 minutes"
+    ],
+    "correct": 0,
+    "explanation": "During the let-by test, the supply control valve is closed and the gauge is observed for 1 minute. Any perceptible rise in gauge reading indicates the valve may be letting-by.",
+    "source": "S2-10"
+  },
+  {
+    "question": "What is let-by, and what is its key danger during tightness testing?",
+    "answers": [
+      "Gas passing through the ECV or MCV when it is in the off position, which can mask or understate a gas escape",
+      "A drop in working pressure caused by excessive appliance demand",
+      "The release of trapped air from the installation after purging",
+      "Lock-up pressure creeping past the regulator diaphragm"
+    ],
+    "correct": 0,
+    "explanation": "Let-by is when the ECV or MCV allows gas to pass even when turned off. If the let-by rate equals or exceeds the rate of escape, a leak will not show at all. If the let-by rate is lower than the escape rate, the escape will appear smaller than it actually is, making it extremely dangerous.",
+    "source": "S2-9"
+  },
+  {
+    "question": "If a let-by test confirms the ECV is letting-by on a natural gas service, what must you do?",
+    "answers": [
+      "Immediately notify the National Gas Emergency Service Call Centre and make the installation safe; do not attempt to remove or repair the ECV yourself",
+      "Isolate at the meter inlet valve and continue testing the downstream installation",
+      "Apply LDF to all downstream joints and re-test after 5 minutes",
+      "Replace the ECV yourself using an authorised repair kit before continuing"
+    ],
+    "correct": 0,
+    "explanation": "If let-by is confirmed on an ECV connected to the end of a NG service pipe, the National Gas Emergency Service Call Centre must be immediately notified. On no account shall anyone other than an authorised operative working on behalf of the ESP attempt to remove, repair or dismantle the valve.",
+    "source": "S2-10"
+  },
+  {
+    "question": "To what pressure range must you raise the installation during a standard domestic tightness test before closing the supply valve and allowing stabilisation?",
+    "answers": [
+      "20–21 mbar",
+      "18–19 mbar",
+      "7–10 mbar",
+      "21–23 mbar"
+    ],
+    "correct": 0,
+    "explanation": "The installation is pressurised to between 20 and 21 mbar. Pressures above 21 mbar risk locking up the regulator, which would prevent detection of an upstream leak during testing.",
+    "source": "S2-11"
+  },
+  {
+    "question": "How is the Purge Volume (PV) calculated for an installation containing pipework greater than 28mm or a U16 meter?",
+    "answers": [
+      "PV = IVt × 1.5",
+      "PV = IVt × 2",
+      "PV = IVt + 0.01 m³",
+      "PV = 0.01 m³ regardless of installation size"
+    ],
+    "correct": 0,
+    "explanation": "For installations with pipework between 28mm and 35mm, or a G10/U16 meter, the purge volume must be calculated as PV = IVt × 1.5. A flat 0.01 m³ purge volume only applies to a U6 meter with pipework of 28mm or less.",
+    "source": "S2-19"
+  },
+  {
+    "question": "When fittings are present on an installation but their individual volumes are unknown, how is the fittings allowance (IVf) calculated?",
+    "answers": [
+      "Add 10% of the total pipe volume (IVp)",
+      "Add 5% of the total installation volume (IVt)",
+      "Add 0.001 m³ per fitting",
+      "Ignore fittings; they are too small to be significant"
+    ],
+    "correct": 0,
+    "explanation": "Where IVf cannot be calculated from known component volumes, an additional 10% of IVp (the pipe volume) is added. This is the standard allowance described in the guide: IVf = 0.1 × IVp.",
+    "source": "S2-23"
+  },
+  {
+    "question": "What is the formula for Total Installation Volume (IVt)?",
+    "answers": [
+      "IVt = IVm + IVp + IVf",
+      "IVt = IVp + IVf only",
+      "IVt = IVm + IVp",
+      "IVt = IVp × 1.5"
+    ],
+    "correct": 0,
+    "explanation": "The Total Installation Volume is the sum of three components: the meter volume (IVm), the pipe volume (IVp), and the fittings volume (IVf). IVt = IVm + IVp + IVf.",
+    "source": "S2-23"
+  },
+  {
+    "question": "An appliance data plate states a gross heat input. To convert this to a net heat input for ventilation calculations, what do you do?",
+    "answers": [
+      "Divide the gross input by 1.11",
+      "Multiply the gross input by 1.11",
+      "Divide the gross input by 1.02",
+      "Multiply the gross input by 0.9"
+    ],
+    "correct": 0,
+    "explanation": "To convert from gross to net, divide the gross heat input by 1.11. This is the standard conversion factor used throughout the Gas Safety Technical Guide for ventilation and vent sizing calculations.",
+    "source": "S5-7"
+  },
+  {
+    "question": "An appliance data plate states a net heat input of 20 kW. You need the gross figure for a gas rate check. What calculation do you perform?",
+    "answers": [
+      "Multiply the net input by 1.11",
+      "Divide the net input by 1.11",
+      "Multiply the net input by 1.02",
+      "Add 10% to the net input"
+    ],
+    "correct": 0,
+    "explanation": "To convert from net to gross, multiply the net heat input by 1.11. The guide states: 'If the net input is given, multiply by 1.11 which will give you the gross input.'",
+    "source": "S3-13"
+  },
+  {
+    "question": "What fixed allowance for adventitious ventilation can be made for open flued appliances in a room, and what is it equivalent to in terms of net heat input?",
+    "answers": [
+      "35 cm², equivalent to 7 kW net heat input",
+      "50 cm², equivalent to 10 kW net heat input",
+      "25 cm², equivalent to 5 kW net heat input",
+      "35 cm², equivalent to 5 kW net heat input"
+    ],
+    "correct": 0,
+    "explanation": "A fixed allowance of 35 cm² for adventitious openings (equivalent to 7 kW net heat input) can be made for open flued appliances. Air is drawn into the room through gaps around doors and windows by the flue's pull.",
+    "source": "S5-7"
+  },
+  {
+    "question": "Does the adventitious ventilation allowance of 35 cm² apply to flueless appliances or to appliances installed in a compartment?",
+    "answers": [
+      "No — it applies only to open flued appliances installed in a room, not to flueless appliances or compartment installations",
+      "Yes — it applies to all appliance types including flueless and compartment installations",
+      "Yes — but only to flueless appliances, not compartment installations",
+      "Yes — but only to compartment installations, not flueless appliances"
+    ],
+    "correct": 0,
+    "explanation": "The guide is explicit: the adventitious opening allowance does not apply to flueless appliances, nor to compartment installations. It is only valid for open flued appliances installed directly in a room.",
+    "source": "S5-7"
+  },
+  {
+    "question": "What is the air vent requirement for an open flued appliance with a net heat input greater than 7 kW installed in a room?",
+    "answers": [
+      "5 cm² per kW of net heat input above 7 kW",
+      "5 cm² per kW of total net heat input",
+      "10 cm² per kW of net heat input above 7 kW",
+      "35 cm² flat allowance regardless of input"
+    ],
+    "correct": 0,
+    "explanation": "For an open flued appliance with a net heat input above 7 kW, the room air vent must provide 5 cm² for every kilowatt above the 7 kW threshold. For example, a 23 kW boiler requires (23 − 7) × 5 = 80 cm².",
+    "source": "S5-7"
+  },
+  {
+    "question": "When adding fittings to a pipe sizing calculation (for working out equivalent pipe length), how many metres are added per elbow or tee for pipework up to 28mm?",
+    "answers": [
+      "0.5 m for each elbow and tee; 0.3 m for each 90° bend",
+      "0.3 m for each elbow and tee; 0.5 m for each 90° bend",
+      "1.0 m for each elbow and tee; 0.5 m for each 90° bend",
+      "0.5 m for each elbow and tee; 0.5 m for each 90° bend"
+    ],
+    "correct": 0,
+    "explanation": "For pipework up to 28mm, the equivalent length additions are 0.5 m for each elbow or tee, and 0.3 m for each 90° bend. These are added to the actual measured pipe length to give the total design pipe length used when reading the discharge tables.",
+    "source": "S6-5"
+  },
+  {
+    "question": "What is the maximum permissible total installation volume (IV) for an installation to fall within the scope of IGE/UP/1B?",
+    "answers": [
+      "0.035 m³",
+      "0.02 m³",
+      "0.05 m³",
+      "0.01 m³"
+    ],
+    "correct": 0,
+    "explanation": "IGE/UP/1B applies to installations with a maximum IV of 0.035 m³ per individual dwelling or non-domestic premises. Installations with a larger volume must be tested in accordance with IGE/UP/1 or IGE/UP/1A.",
+    "source": "S2-5"
+  },
+  {
+    "question": "If the installation volume exceeds 0.02 m³ during a purge, what must the engineer do with the purged gas/air mixture?",
+    "answers": [
+      "Continually attempt to ignite it at an open burner as soon as possible",
+      "Vent it freely to atmosphere through an open window",
+      "Pass it through a temporary activated carbon filter",
+      "Allow it to disperse naturally; no ignition attempt is required"
+    ],
+    "correct": 0,
+    "explanation": "Where the IV exceeds 0.02 m³, the guide requires that the purged gas/air mixture is ignited at an open burner as soon as possible. This reduces the volume of unignited gas released into the premises.",
+    "source": "S2-19"
+  },
+  {
+    "question": "What is the installation volume (IVm) of a standard G4/U6 diaphragm meter?",
+    "answers": [
+      "0.008 m³",
+      "0.025 m³",
+      "0.0024 m³",
+      "0.002 m³"
+    ],
+    "correct": 0,
+    "explanation": "Table 3 in the guide states the installation volume of a G4/U6 meter is 0.008 m³. The U16 meter is 0.025 m³ and the E6 ultrasonic meter is 0.0024 m³.",
+    "source": "S2-21"
+  },
+  {
+    "question": "For a simple domestic installation with a U6 meter and all pipework 28mm or less, what is the standard purge volume without needing to calculate IV?",
+    "answers": [
+      "0.01 m³",
+      "0.035 m³",
+      "0.02 m³",
+      "1.5 × IVt"
+    ],
+    "correct": 0,
+    "explanation": "For a U6 (or E6/G4) meter with pipework of 28mm or less, a fixed purge volume of 0.01 m³ applies and there is no need to calculate IV. The calculated method (1.5 × IVt) only applies where pipework exceeds 28mm or a U16 meter is fitted.",
+    "source": "S2-19"
+  },
+  {
+    "question": "When surveying inaccessible pipework of unknown length for an IV calculation, what size should you assume for the pipe?",
+    "answers": [
+      "The largest size present, at the maximum possible length",
+      "The smallest size present, to keep the calculation conservative",
+      "The average of all sizes present",
+      "22mm steel as a standard default"
+    ],
+    "correct": 0,
+    "explanation": "The guide states that for inaccessible pipework where there are different sizes of pipework of unknown length, you should always assume the largest size for the maximum length. This gives the most conservative (highest) IV estimate.",
+    "source": "S2-21"
+  },
+  {
+    "question": "What is the maximum total IV permitted when extending an existing installation under IGE/UP/1B?",
+    "answers": [
+      "The combined volume of the new and existing sections must be less than 0.035 m³",
+      "Only the new section needs to be below 0.035 m³; the existing section is excluded",
+      "0.02 m³ for extensions to existing installations",
+      "There is no limit provided the meter is rated at U6 or below"
+    ],
+    "correct": 0,
+    "explanation": "When extending existing pipework, the total volume of both the new and existing sections combined must be less than 0.035 m³ to remain within the scope of IGE/UP/1B.",
+    "source": "S2-21"
+  },
+  {
+    "question": "At the end of the 1 minute let-by test on medium pressure, why do we then open the pressure control valve?",
+    "answers": [
+      "We can only check for let-by by observing the gauge whilst the valve is open, if the pressure increases, the ECV is letting by",
+      "Because the valve must be open to allow the pressure to stabilise before the main tightness test",
+      "Incase of regulator lock up, where the regulator diaphragm is lifted off the seat, the regulator may need to be reset",
+      "We do not, we simply proceed to the stabilisation period and main tightness test"
+    ],
+    "correct": 0,
+    "explanation": "The pipework between the ECV and regulator is sealed off during the tightness test, if the ECV is letting by, this section of pipework increases in pressure by it is not reflected on the UGauge, by releasing the control valve, the gas flows into the rest of the pipework and if there is let-by, it will push up the UGauge pressure",
+    "source": "needs citation"
+  },
+  {
+    "question": "What pressure range do we test medium pressure installations to during a let-by test?",
+    "answers": [
+      "2-2.1 bar",
+      "7-10 mbar",
+      "7-10 psi",
+      "18-19 mbar"
+    ],
+    "correct": 1,
+    "explanation": "Medium pressure installations are tested to 7-10 mbar during a let-by test, this is the same as low pressure installations.",
+    "source": "needs citation"
+  },
+  {
+    "question": "What pressure range do we test medium pressure installations to during a let-by test?",
+    "answers": [
+      "2-2.1 bar",
+      "7-10 mbar",
+      "7-10 psi",
+      "18-19 mbar"
+    ],
+    "correct": 1,
+    "explanation": "Medium pressure installations are tested to 7-10 mbar during a let-by test, this is the same as low pressure installations.",
+    "source": "needs citation"
+  },
+  {
+    "question": "What pressure range do we test medium pressure installations to during a pressure stabilisation/tightness test?",
+    "answers": [
+      "20-21 mbar",
+      "17-18 mbar",
+      "17-19 mbar",
+      "18-19 mbar"
+    ],
+    "correct": 1,
+    "explanation": "Medium pressure installations are tested to 18-19 mbar during a pressure stabilisation/tightness test. This is lower than the 20-21 mbar used for low pressure installations, to avoid regulator lock-up.",
+    "source": "needs citation"
+  },
+  {
+    "question": "What pressure range do we test medium pressure installations to during a pressure stabilisation/tightness test?",
+    "answers": [
+      "20-21 mbar",
+      "17-18 mbar",
+      "17-19 mbar",
+      "18-19 mbar"
+    ],
+    "correct": 1,
+    "explanation": "Medium pressure installations are tested to 18-19 mbar during a pressure stabilisation/tightness test. This is lower than the 20-21 mbar used for low pressure installations, to avoid regulator lock-up.",
+    "source": "needs citation"
+  }
+]

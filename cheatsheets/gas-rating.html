@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gas Rating — Gas Safety Cheat Sheet</title>
+<style>
+  :root {
+    --navy: #0d1b2a;
+    --navy-mid: #1a2e45;
+    --cyan: #00c2d4;
+    --cyan-dark: #009aaa;
+    --text: #e8f0f7;
+    --text-dim: #8aa4bf;
+    --correct: #2ecc71;
+    --warn: #f39c12;
+    --danger: #e74c3c;
+    --card: #162030;
+    --border: #243650;
+    --highlight: #1e3a5f;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: var(--navy);
+    color: var(--text);
+    line-height: 1.6;
+    font-size: 15px;
+  }
+
+  header {
+    background: linear-gradient(135deg, var(--navy-mid), #0a2540);
+    border-bottom: 3px solid var(--cyan);
+    padding: 24px 24px 16px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  header h1 { font-size: 1.4rem; color: var(--cyan); font-weight: 700; }
+  header p  { font-size: 0.82rem; color: var(--text-dim); margin-top: 2px; }
+
+  nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 10px;
+  }
+
+  nav a {
+    background: var(--highlight);
+    color: var(--cyan);
+    text-decoration: none;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.76rem;
+    font-weight: 600;
+    border: 1px solid var(--border);
+    transition: background 0.2s;
+  }
+  nav a:hover { background: var(--cyan); color: var(--navy); }
+
+  main { max-width: 900px; margin: 0 auto; padding: 20px 16px 60px; }
+
+  section { margin-bottom: 40px; }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--navy-mid);
+    border-left: 4px solid var(--cyan);
+    border-radius: 0 8px 8px 0;
+    padding: 12px 16px;
+    margin-bottom: 16px;
+  }
+
+  .section-header .icon { font-size: 1.6rem; }
+  .section-header h2 { font-size: 1.1rem; color: var(--cyan); font-weight: 700; }
+  .section-header .ref { font-size: 0.75rem; color: var(--text-dim); margin-top: 1px; }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 14px;
+  }
+
+  .card h3 {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--cyan);
+    margin-bottom: 10px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .formula-box {
+    background: var(--highlight);
+    border: 1px solid var(--cyan-dark);
+    border-radius: 6px;
+    padding: 10px 14px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.88rem;
+    margin: 8px 0;
+    color: #b8e0ff;
+  }
+
+  .formula-box .label {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.82rem;
+    margin: 10px 0;
+  }
+
+  th {
+    background: var(--highlight);
+    color: var(--cyan);
+    padding: 7px 10px;
+    text-align: left;
+    font-size: 0.78rem;
+    font-weight: 600;
+    border: 1px solid var(--border);
+  }
+
+  td {
+    padding: 6px 10px;
+    border: 1px solid var(--border);
+    vertical-align: top;
+  }
+
+  tr:nth-child(even) td { background: rgba(255,255,255,0.03); }
+
+  .worked {
+    background: rgba(0,194,212,0.05);
+    border: 1px solid rgba(0,194,212,0.25);
+    border-radius: 6px;
+    padding: 12px 14px;
+    margin-top: 10px;
+    font-size: 0.84rem;
+  }
+
+  .worked .title {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--cyan);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+  }
+
+  .worked code {
+    display: block;
+    font-family: 'Courier New', monospace;
+    font-size: 0.83rem;
+    color: #b8e0ff;
+    line-height: 1.8;
+    white-space: pre-wrap;
+  }
+
+  .worked .result {
+    margin-top: 8px;
+    color: var(--correct);
+    font-weight: 700;
+    font-family: 'Courier New', monospace;
+  }
+
+  .callout {
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin: 10px 0;
+    font-size: 0.84rem;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .callout.info  { background: rgba(0,122,212,0.1); border-left: 3px solid #2980b9; }
+  .callout.warn  { background: rgba(243,156,18,0.1); border-left: 3px solid var(--warn); }
+  .callout.danger { background: rgba(231,76,60,0.1); border-left: 3px solid var(--danger); }
+  .callout.ok    { background: rgba(46,204,113,0.1); border-left: 3px solid var(--correct); }
+
+  .callout .ico { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+  .callout p { margin: 0; }
+  .callout strong { color: inherit; }
+
+  .pill {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    margin-right: 4px;
+  }
+  .pill.pass   { background: rgba(46,204,113,0.2); color: var(--correct); border: 1px solid var(--correct); }
+  .pill.fail   { background: rgba(231,76,60,0.2); color: var(--danger); border: 1px solid var(--danger); }
+  .pill.warn   { background: rgba(243,156,18,0.2); color: var(--warn); border: 1px solid var(--warn); }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  @media (max-width: 600px) {
+    .two-col { grid-template-columns: 1fr; }
+  }
+
+  .step {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    margin-bottom: 8px;
+    font-size: 0.84rem;
+  }
+
+  .step .num {
+    background: var(--cyan);
+    color: var(--navy);
+    font-weight: 700;
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  p { margin-bottom: 8px; font-size: 0.84rem; }
+  ul { margin: 6px 0 6px 18px; font-size: 0.84rem; }
+  li { margin-bottom: 3px; }
+
+  .source-tag {
+    display: inline-block;
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1px 5px;
+    margin-left: 6px;
+    font-family: monospace;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>⏱️ Gas Rating</h1>
+  <p>Rating appliances on U6 imperial and E6 metric meters — Gas Safety Technical Guide v5.0</p>
+  <nav>
+    <a href="cheatsheets.html">← All Cheat Sheets</a>
+    <a href="#gr">⏱️ Gas Rating</a>
+  </nav>
+</header>
+
+<main>
+<section id="gr">
+  <div class="section-header">
+    <span class="icon">⏱️</span>
+    <div>
+      <h2>Gas Rating</h2>
+      <div class="ref">Source: S3-10 to S3-15</div>
+    </div>
+  </div>
+
+  <div class="callout info">
+    <span class="ico">ℹ️</span>
+    <p>Before gas rating: operate the appliance at its <strong>appropriate gas rate</strong> and ensure it is the <strong>only appliance operating</strong> on the installation.</p>
+  </div>
+
+  <div class="card">
+    <h3>Method 1 — Imperial (U6) meter using test dial <span class="source-tag">S3-10/11</span></h3>
+    <p>Time one complete revolution of the test dial (in seconds, then convert to decimal minutes).</p>
+
+    <div class="formula-box">
+      <div class="label">Gas Rate</div>
+      ft³/hr = 60 × Size of Test Dial (ft³) ÷ Time (minutes, decimal)
+    </div>
+    <div class="formula-box">
+      <div class="label">Heat Input (Btu/hr)</div>
+      Btu/hr = 61,290 × Size of Test Dial ÷ Time (minutes, decimal)
+    </div>
+    <div class="formula-box">
+      <div class="label">Heat Input (kW gross)</div>
+      kW = 1,077 × Size of Test Dial ÷ Time (seconds)
+    </div>
+    <div class="formula-box" style="margin-top:10px;">
+      <div class="label">Alternative formula (multiple revolutions)</div>
+      ft³/hr = 3,600 × Dial size × Number of revs ÷ Time taken (seconds)
+      → × C.V. → Btu/hr
+      → ÷ 3,412 → kW
+    </div>
+
+    <div class="worked">
+      <div class="title">Worked Example — 1 ft³ dial, 1 revolution in 45 seconds (= 0.75 min)</div>
+      <code>Gas Rate  = 60 × 1 ÷ 0.75      = 80 ft³/hr
+Btu/hr    = 61,290 × 1 ÷ 0.75   = 81,720 Btu/hr
+kW (gross) = 1,077 × 1 ÷ 45    = 24 kW</code>
+    </div>
+
+    <h3 style="margin-top:16px">Quick-reference table (1 ft³ dial, C.V. = 1020 Btu/ft³) <span class="source-tag">S3-12/13</span></h3>
+    <table>
+      <tr><th>Time (1 dial)</th><th>Time (2 dial)</th><th>Time (5 dial)</th><th>ft³/hr</th><th>kW (gross)</th></tr>
+      <tr><td>6 min 0 s</td><td>12 min 0 s</td><td>30 min 0 s</td><td>10</td><td>~3.0</td></tr>
+      <tr><td>3 min 0 s</td><td>6 min 0 s</td><td>15 min 0 s</td><td>20</td><td>~6.0</td></tr>
+      <tr><td>2 min 0 s</td><td>4 min 0 s</td><td>10 min 0 s</td><td>30</td><td>~9.0</td></tr>
+      <tr><td>1 min 30 s</td><td>3 min 0 s</td><td>7 min 30 s</td><td>40</td><td>12</td></tr>
+      <tr><td>1 min 12 s</td><td>2 min 24 s</td><td>6 min 0 s</td><td>50</td><td>15</td></tr>
+      <tr><td>1 min 0 s</td><td>2 min 0 s</td><td>5 min 0 s</td><td>60</td><td>18</td></tr>
+      <tr><td>48 s</td><td>1 min 36 s</td><td>4 min 0 s</td><td>75</td><td>22.5</td></tr>
+      <tr><td>45 s</td><td>1 min 30 s</td><td>3 min 45 s</td><td>80</td><td>24</td></tr>
+      <tr><td>36 s</td><td>1 min 12 s</td><td>3 min 0 s</td><td>100</td><td>~30</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3>Method 2 — E6 Ultrasonic / direct-reading metric meter <span class="source-tag">S3-13/14</span></h3>
+    <div class="callout warn">
+      <span class="ico">⚠️</span>
+      <p>The E6 display does <strong>not</strong> increment evenly. Always measure over a <strong>2 minute period</strong> for reasonable accuracy.</p>
+    </div>
+    <div class="step"><span class="num">1</span><span>Record the LCD reading (last 3 digits are for gas rating — 10ths, 100ths, 1000ths of m³).</span></div>
+    <div class="step"><span class="num">2</span><span>After exactly 2 minutes, record the LCD reading again.</span></div>
+    <div class="step"><span class="num">3</span><span>Deduct first reading from second to get gas flow in m³ over 2 minutes.</span></div>
+    <div class="step"><span class="num">4</span><span>Apply formula or use conversion table.</span></div>
+
+    <div class="formula-box" style="margin-top:10px">
+      <div class="label">kW (gross) from m³ in 2 minutes</div>
+      kW = 3,600 × volume (m³) × 10.8 ÷ 120
+         = volume (m³) × 324
+      (C.V. of natural gas ≈ 10.8 kW per m³, i.e. 38.8 MJ/m³ ÷ 3.6)
+    </div>
+
+    <div class="worked">
+      <div class="title">Worked Example — Reading increases 0.991 → 0.936 … wait, correct reading from guide:</div>
+      <code>End reading:   0.991 m³ (last 3 digits)
+Start reading: 0.936 m³
+Difference:    0.055 m³ in 2 minutes
+
+kW = 3,600 × 0.055 × 10.8 ÷ 120</code>
+      <div class="result">= 17.82 kW (gross)</div>
+    </div>
+
+    <h3 style="margin-top:14px">Quick-reference table — m³ in 2 minutes → kW <span class="source-tag">S3-15</span></h3>
+    <table>
+      <tr><th>m³ in 2 min</th><th>m³/hr</th><th>ft³/hr</th><th>kW</th></tr>
+      <tr><td>0.01</td><td>0.3</td><td>10.61</td><td>3.2</td></tr>
+      <tr><td>0.02</td><td>0.6</td><td>21.22</td><td>6.4</td></tr>
+      <tr><td>0.03</td><td>0.9</td><td>31.83</td><td>9.7</td></tr>
+      <tr><td>0.04</td><td>1.2</td><td>42.44</td><td>12.9</td></tr>
+      <tr><td>0.05</td><td>1.5</td><td>53.06</td><td>16.1</td></tr>
+      <tr><td>0.06</td><td>1.8</td><td>63.67</td><td>19.3</td></tr>
+      <tr><td>0.07</td><td>2.1</td><td>74.28</td><td>22.5</td></tr>
+      <tr><td>0.08</td><td>2.4</td><td>84.89</td><td>25.8</td></tr>
+      <tr><td>0.09</td><td>2.7</td><td>95.50</td><td>29.0</td></tr>
+      <tr><td>0.10</td><td>3.0</td><td>106.11</td><td>32.2</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3>Net ↔ Gross conversion <span class="source-tag">S3-13</span></h3>
+    <div class="two-col">
+      <div class="formula-box">
+        <div class="label">Net → Gross</div>
+        Gross = Net × 1.11
+      </div>
+      <div class="formula-box">
+        <div class="label">Gross → Net</div>
+        Net = Gross ÷ 1.11
+      </div>
+    </div>
+    <div class="formula-box" style="margin-top:8px">
+      <div class="label">When badge shows OUTPUT not INPUT (e.g. old appliances)</div>
+      Heat Input = Heat Output × 10/6
+    </div>
+  </div>
+</section>
+</main>
+
+</body>
+</html>

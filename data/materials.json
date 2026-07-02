@@ -1,0 +1,42 @@
+[
+  {
+    "id": "iv-pv-cheatsheet",
+    "title": "Installation & Purge Volumes",
+    "subtitle": "IVt = IVm + IVp + IVf · PV = IVt × 1.5 · Ignition thresholds",
+    "icon": "📦",
+    "file": "./cheatsheets/iv-pv.html",
+    "ref": "S2-19 to S2-24"
+  },
+  {
+    "id": "tightness-testing-cheatsheet",
+    "title": "Tightness Testing",
+    "subtitle": "Pressure drops · Let-by · Lock-up · Step-by-step procedure",
+    "icon": "🔬",
+    "file": "./cheatsheets/tightness-testing.html",
+    "ref": "S2-5 to S2-18"
+  },
+  {
+    "id": "gas-rating-cheatsheet",
+    "title": "Gas Rating",
+    "subtitle": "U6 dial timing · E6 metric method · kW conversions",
+    "icon": "⏱️",
+    "file": "./cheatsheets/gas-rating.html",
+    "ref": "S3-10 to S3-15"
+  },
+  {
+    "id": "ventilation-sizing-cheatsheet",
+    "title": "Ventilation Sizing",
+    "subtitle": "(kW−7)×5 open flued · Table 1 flueless · Compartment vents",
+    "icon": "🌬️",
+    "file": "./cheatsheets/ventilation-sizing.html",
+    "ref": "S5-6 to S5-48"
+  },
+  {
+    "id": "conversions-cheatsheet",
+    "title": "Conversions & Key Constants",
+    "subtitle": "Pressure · Volume · Energy · Area · Key thresholds",
+    "icon": "🔄",
+    "file": "./cheatsheets/conversions.html",
+    "ref": "S2, S3, S5"
+  }
+]

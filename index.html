@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0f172a">
+  <meta name="description" content="British Gas Smart Metering Apprenticeship Quizzes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="manifest" href="./manifest.json">
+  <link rel="stylesheet" href="./styles.css">
+  <title>BG Smart Metering Quiz App</title>
+</head>
+<body>
+
+  <div class="app-layout">
+
+    <header class="app-header" role="banner">
+      <button class="quiz-exit-header-btn" id="quizExitBtn" style="display:none" onclick="confirmExit()">
+        &#8592; Exit
+      </button>
+      <div class="theme-toggle-wrap">
+        <input class="theme-toggle-input" type="checkbox" id="themeSwitch" name="mode">
+        <label for="themeSwitch">Toggle light/dark mode</label>
+      </div>
+      <img src="./assets/logo.svg" class="header-logo" alt="British Gas" />
+      <div class="badge-text badge">Exam Prep</div>
+      <p id="quizSubtitle" class="subtitle">⚡ Smart Metering Apprenticeship Training ⚡</p>
+    </header>
+
+    <section id="progressSection" aria-label="Quiz progress" style="display:none">
+      <div class="progress-meta">
+        <span class="progress-label" id="progressText" aria-live="polite">Question 1 of 50</span>
+        <span id="modeBadge" class="mode-badge"></span>
+      </div>
+      <div class="progress-track" role="progressbar" aria-labelledby="progressText" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+    </section>
+
+    <main id="quizCard" class="quiz-card fade-in"></main>
+
+  </div>
+
+  <script src="./quiz.js?v=3"></script>
+  <script src="./generateIVPV.js"></script>
+  <script>
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("service-worker.js");
+    }
+  </script>
+</body>
+</html>
