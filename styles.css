@@ -713,7 +713,7 @@ header p.subtitle {
     margin: 0;
     /* flat bottom, rounded top */
     border-radius: var(--radius-card) var(--radius-card) 0 0;
-    max-height: calc(100dvh - 160px); /* replaces 80dvh — adapts to actual header height */
+    max-height: calc(100dvh - 180px); /* replaces 80dvh — adapts to actual header height */
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     background: var(--colour-answer-bg); 
